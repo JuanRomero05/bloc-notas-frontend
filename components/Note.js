@@ -1,3 +1,4 @@
+//Este componente es llamado por la screen Notes.js
 import {
      StyleSheet,
      Text,

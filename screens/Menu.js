@@ -5,6 +5,7 @@ import { useTheme } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Notes from "./Notes";
 import NewNote from "./NewNote";
+import NewFolder from "./NewFolder";
 
 //Menu de navegacion inferior
 const Tab = createMaterialBottomTabNavigator();
@@ -38,6 +39,16 @@ const Menu = () => {
                          tabBarLabel: "Nueva nota",
                          tabBarIcon: () => (
                               <MaterialCommunityIcons name="note-plus-outline" color="#000" size={24} />
+                         )
+                    }}
+               />
+               <Tab.Screen
+                    name="Nueva Carpeta"
+                    component={NewFolder}
+                    options={{
+                         tabBarLabel: "Nueva carpeta",
+                         tabBarIcon: () => (
+                              <MaterialCommunityIcons name="folder-plus-outline" color="#000" size={24} />
                          )
                     }}
                />
