@@ -1,4 +1,4 @@
-//Este componente es llamado por la screen Notes.js
+//Este componente es llamado por la screen Folders.js
 import {
      StyleSheet,
      Text,
@@ -6,13 +6,10 @@ import {
      View,
 } from "react-native";
 
-const Note = () => {
+const Folder = () => {
      return (
           <View style={styles.item}>
                <Text style={styles.title}>Title</Text>
-               <View style={styles.description}>
-                    <Text style={styles.textDescription}>Description</Text>
-               </View>
 
                <TouchableOpacity
                     style={styles.buttonEliminar}
@@ -72,4 +69,4 @@ const styles = StyleSheet.create({
      }
 });
 
-export default Note;
+export default Folder;

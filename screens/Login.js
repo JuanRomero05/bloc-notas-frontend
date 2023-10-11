@@ -30,8 +30,8 @@ const Login = () => {
      return (
           <View>
 
-               <View style={styles.form}>
-                    <Text>Iniciar Sesión</Text>
+               <View /* style={styles.form} */>
+                    <Text style={{ marginBottom: 15, marginTop: 25 }}>Iniciar Sesión</Text>
                     <View style={styles.inputGroup}>
                          <TextInput
                               placeholder="Ingresa tu usuario"
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
           padding: 12,
           borderRadius: 15,
           width: "100%",
+          marginBottom: 10
      },
      buttonDesc: {
           alignItems: 'center',

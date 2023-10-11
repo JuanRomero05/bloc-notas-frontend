@@ -2,8 +2,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Welcome from "./screens/Welcome";
 import Menu from "./screens/Menu";
-import Login from "./screens/Login";
 import Signup from "./screens/Signup";
+import ModificarPerfil from "./components/ModificarPerfil";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,12 +43,11 @@ export default function App() {
           }}
         />
 
-
         <Stack.Screen
-          name="Login"
-          component={Login}
+          name="Signup"
+          component={Signup}
           options={{
-            title: "Login",
+            title: "Signup",
             headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "#fff",
@@ -61,10 +60,10 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="Signup"
-          component={Signup}
+          name="ModificarPerfil"
+          component={ModificarPerfil}
           options={{
-            title: "Signup",
+            title: "Modificar Perfil",
             headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "#fff",

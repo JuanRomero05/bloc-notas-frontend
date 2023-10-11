@@ -3,9 +3,12 @@ import { StyleSheet } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { useTheme } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Notes from "./Notes";
+//import Notes from "./Notes";
 import NewNote from "./NewNote";
 import NewFolder from "./NewFolder";
+import Perfil from "./Perfil";
+import Folders from "./Folders";
+import Inicio from "../components/Inicio";
 
 //Menu de navegacion inferior
 const Tab = createMaterialBottomTabNavigator();
@@ -23,12 +26,12 @@ const Menu = () => {
                barStyle={styles.navigationBar}
           >
                <Tab.Screen
-                    name="Notas"
-                    component={Notes}
+                    name="Inicio"
+                    component={Folders}
                     options={{
-                         tabBarLabel: "Notas",
+                         tabBarLabel: "Inicio",
                          tabBarIcon: () => (
-                              <MaterialCommunityIcons name="note-outline" color="#000" size={24} />
+                              <MaterialCommunityIcons name="home-outline" color="#000" size={24} />
                          )
                     }}
                />
@@ -49,6 +52,16 @@ const Menu = () => {
                          tabBarLabel: "Nueva carpeta",
                          tabBarIcon: () => (
                               <MaterialCommunityIcons name="folder-plus-outline" color="#000" size={24} />
+                         )
+                    }}
+               />
+               <Tab.Screen
+                    name="Perfil"
+                    component={Perfil}
+                    options={{
+                         tabBarLabel: "Perfil",
+                         tabBarIcon: () => (
+                              <MaterialCommunityIcons name="account-cog-outline" color="#000" size={24} />
                          )
                     }}
                />

@@ -12,22 +12,26 @@ const Welcome = () => {
      }
 
      return (
-          <View>
-               <Text>Welcome</Text>
+          <View style={styles.container}>
+               <Text>Welcome (colocar imagen)</Text>
                <View>
                     <Login />
                </View>
                <TouchableOpacity style={styles.buttonRegister} onPress={handleSignup}>
-                    <Text>Registrarse</Text>
+                    <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Registrarse</Text>
                </TouchableOpacity>
           </View>
      );
 };
 
 const styles = StyleSheet.create({
+     container: {
+          flex: 1,
+          padding: 40,
+     },
      buttonRegister: {
           alignItems: 'center',
-          backgroundColor: "#025099",
+          borderWidth: 1,
           borderColor: "#025099",
           padding: 12,
           borderRadius: 15,
