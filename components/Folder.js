@@ -6,10 +6,10 @@ import {
      View,
 } from "react-native";
 
-const Folder = () => {
+const Folder = ({ title }) => {
      return (
           <View style={styles.item}>
-               <Text style={styles.title}>Title</Text>
+               <Text style={styles.title}>{title}</Text>
 
                <TouchableOpacity
                     style={styles.buttonEliminar}

@@ -2,41 +2,57 @@
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const Login = () => {
 
      const [Login, setLogin] = useState({
-          user: "",
+          email: "",
           password: ""
      });
 
      const navigation = useNavigation();
 
-     const handleLogin = () => {
-          navigation.navigate("Menu");
-     }
-
      const handleChangeText = (name, value) => {
           setLogin({ ...Login, [name]: value })
      }
 
-     /* const iniciarSesion = () => {
-          setLogin({
-               user: "",
-               password: "",
-          });
-     } */
+     const handleLogin = async () => {
+          try {
+               let baseURL = "https://bloc-api-production.up.railway.app/auth/login";
+               const body = {
+                    "email": Login.email,
+                    "password": Login.password
+               }
+               const res = await fetch(baseURL, {
+                    method: "POST",
+                    headers: {
+                         "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+               });
+               const response = await res
+               const data = await response.json()
+               if (response.status === 200) {
+                    await AsyncStorage.setItem('token', data.token);
+                    navigation.navigate("Menu");
+               } else {
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
+     }
 
      return (
           <View>
-
                <View /* style={styles.form} */>
                     <Text style={{ marginBottom: 15, marginTop: 25 }}>Iniciar Sesión</Text>
                     <View style={styles.inputGroup}>
                          <TextInput
-                              placeholder="Ingresa tu usuario"
-                              value={Login.user}
-                              onChangeText={(value) => handleChangeText("user", value)}
+                              placeholder="Ingresa tu correo"
+                              value={Login.email}
+                              onChangeText={(value) => handleChangeText("email", value)}
                          />
                     </View>
 

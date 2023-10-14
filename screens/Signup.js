@@ -1,6 +1,6 @@
 /* Al Registrarse, se redigira a la screen de login */
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView } from "react-native";
-import React, { useState } from "react";
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const Signup = () => {
@@ -14,8 +14,32 @@ const Signup = () => {
      });
 
      const navigation = useNavigation();
-     const handleWelcome = () => {
-          navigation.navigate("Welcome");
+
+     const handleWelcome = async () => {
+          try {
+               let baseURL = "https://bloc-api-production.up.railway.app/auth/signup";
+               const body = {
+                    "username": Signup.user,
+                    "email": Signup.email,
+                    "password": Signup.password
+               }
+               const res = await fetch(baseURL, {
+                    method: "POST",
+                    headers: {
+                         "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+               });
+               const response = await res
+               if (response.status === 201) {
+                    navigation.navigate("Welcome");
+               } else {
+                    const data = await response.json()
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
      }
 
      const handleChangeText = (name, value) => {

@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useNavigation } from "@react-navigation/native";
 
 const NewFolder = () => {
 
@@ -7,14 +9,62 @@ const NewFolder = () => {
           title: "",
      });
 
+     const navigation = useNavigation();
+
      const handleChangeText = (name, value) => {
-          setNewNote({ ...NewFolder, [name]: value })
+          setNewFolder({ ...NewFolder, [name]: value })
      }
 
-     const saveFolder = () => {
-          setNewFolder({
-               title: "",
-          });
+     const saveFolder = async () => {
+          try {
+               //Primer fetch para obtener el id del usuario, ya que es necesario al crear una carpeta
+               const baseURL = "https://bloc-api-production.up.railway.app/users";
+               const token = await AsyncStorage.getItem('token');
+               const res = await fetch(baseURL, {
+                    method: "GET",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+               });
+               const response = await res;
+               const data = await response.json()
+               console.log("id");
+               console.log("hasta aqui todo bien");
+
+               if (response.status === 200) {
+                    //Segundo fetch para crear la carpeta
+                    const baseURL2 = "https://bloc-api-production.up.railway.app/folders";
+                    const body = {
+                         "title": NewFolder.title,
+                         "userId": id
+                    }
+                    const res2 = await fetch(baseURL2, {
+                         method: "POST",
+                         headers: {
+                              "Content-Type": "application/json",
+                              "Authorization": `Bearer ${token}`
+                         },
+                         body: JSON.stringify(body)
+                    });
+                    const response2 = await res2
+                    if (response2.status === 201) {
+                         setNewFolder({
+                              title: "",
+                         });
+                         navigation.navigate("Menu");
+                    } else {
+                         const data2 = await response2.json()
+                         Alert.alert(`${response2.status}, ${data2.msg}`)
+                    }
+               } else {
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
+
      }
 
      return (
