@@ -29,16 +29,19 @@ const NewFolder = () => {
                });
                const response = await res;
                const data = await response.json()
-               console.log("id");
+               var i = 0;
+               console.log(i++);
                console.log("hasta aqui todo bien");
 
                if (response.status === 200) {
+                    console.log(i++);
                     //Segundo fetch para crear la carpeta
                     const baseURL2 = "https://bloc-api-production.up.railway.app/folders";
                     const body = {
                          "title": NewFolder.title,
-                         "userId": id
+                         "userId": data._id
                     }
+                    console.log(i++);
                     const res2 = await fetch(baseURL2, {
                          method: "POST",
                          headers: {
@@ -47,8 +50,13 @@ const NewFolder = () => {
                          },
                          body: JSON.stringify(body)
                     });
+
+                    console.log(i++);
+
                     const response2 = await res2
                     if (response2.status === 201) {
+                         console.log(i++);
+
                          setNewFolder({
                               title: "",
                          });
