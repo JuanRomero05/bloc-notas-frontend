@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useNavigation } from "@react-navigation/native";
+import Config from "../Config";
 
-const NewFolder = () => {
+const NewFolder = ({ navigation }) => {
+
+     const api = Config.apiURL;
 
      const [NewFolder, setNewFolder] = useState({
           title: "",
      });
 
-     const navigation = useNavigation();
+     //const navigation = useNavigation();
 
      const handleChangeText = (name, value) => {
           setNewFolder({ ...NewFolder, [name]: value })
@@ -18,9 +20,9 @@ const NewFolder = () => {
      const saveFolder = async () => {
           try {
                //Primer fetch para obtener el id del usuario, ya que es necesario al crear una carpeta
-               const baseURL = "https://bloc-api-production.up.railway.app/users";
+               //const baseURL = "https://bloc-api-production.up.railway.app/users";
                const token = await AsyncStorage.getItem('token');
-               const res = await fetch(baseURL, {
+               const res = await fetch(api + "/users", {
                     method: "GET",
                     headers: {
                          "Content-Type": "application/json",
@@ -30,19 +32,19 @@ const NewFolder = () => {
                const response = await res;
                const data = await response.json()
                var i = 0;
-               console.log(i++);
-               console.log("hasta aqui todo bien");
+               //console.log(i++);
+               //console.log("hasta aqui todo bien");
 
                if (response.status === 200) {
-                    console.log(i++);
+                    //console.log(i++);
                     //Segundo fetch para crear la carpeta
-                    const baseURL2 = "https://bloc-api-production.up.railway.app/folders";
+                    //const baseURL2 = "https://bloc-api-production.up.railway.app/folders";
                     const body = {
                          "title": NewFolder.title,
                          "userId": data._id
                     }
-                    console.log(i++);
-                    const res2 = await fetch(baseURL2, {
+                    //console.log(i++);
+                    const res2 = await fetch(api + "/folders", {
                          method: "POST",
                          headers: {
                               "Content-Type": "application/json",
@@ -51,16 +53,16 @@ const NewFolder = () => {
                          body: JSON.stringify(body)
                     });
 
-                    console.log(i++);
+                    //console.log(i++);
 
                     const response2 = await res2
                     if (response2.status === 201) {
-                         console.log(i++);
+                         //console.log(i++);
 
                          setNewFolder({
                               title: "",
                          });
-                         navigation.navigate("Menu");
+                         navigation.jumpTo("Inicio");
                     } else {
                          const data2 = await response2.json()
                          Alert.alert(`${response2.status}, ${data2.msg}`)

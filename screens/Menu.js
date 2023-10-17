@@ -1,5 +1,6 @@
 //Maneja la logica para cambiar de pantallas
 import { StyleSheet } from "react-native";
+//import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { useTheme } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -19,6 +20,7 @@ const Menu = () => {
      theme.colors.secondaryContainer = "#e5e5e5";
 
      return (
+
           <Tab.Navigator
                tabBarActivateBackgroundColor="#fff"
                activeColor="#000"
@@ -66,6 +68,7 @@ const Menu = () => {
                     }}
                />
           </Tab.Navigator>
+
      );
 };
 

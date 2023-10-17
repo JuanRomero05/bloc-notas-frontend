@@ -4,18 +4,16 @@ import Welcome from "./screens/Welcome";
 import Menu from "./screens/Menu";
 import Signup from "./screens/Signup";
 import ModificarPerfil from "./components/ModificarPerfil";
-import { ScrollView, Text, View } from "react-native";
-import Note from "./components/Note";
-import Folder from "./components/Folder";
+import Folders from "./screens/Folders";
 
 const Stack = createNativeStackNavigator();
 
-//TODO: 1. Crear carpeta del usuario
-//TODO: 2. Mostrar carpeta del usuario  
+//* 1. Crear carpeta del usuario
+//* 2. Mostrar carpeta del usuario  
 //TODO: 3. Cerrar sesion
 //TODO: 4. Eliminar cuenta
 //TODO: 5. Modificar perfil
-//TODO: 6. Al guardar una carpeta me debe redireccionar a la pestaña de inicio.
+//* 6. Al guardar una carpeta me debe redireccionar a la pestaña de inicio.
 //TODO: 7. Al presionar una carpeta me debe abrir todas las notas que contiene, y si no tiene, dar la opcion para crear una.
 
 export default function App() {
@@ -90,42 +88,5 @@ export default function App() {
   );
 }
 
-/* const MenuScreen = () => {
-  return (
-    <View>
-      <Notes />
-      <Folders />
-    </View>
-  );
-} */
 
-const Notes = () => {
-  return (
-    <ScrollView /* style={styles.container} */>
-      <View /* style={styles.titleContainer} */>
-        <Text /* style={styles.title} */>Notas</Text>
-      </View>
-
-      <View>
-        <Note />
-        <Text /* style={styles.text} */>No existen notas...</Text>
-      </View>
-    </ScrollView>
-  );
-}
-
-const Folders = () => {
-  return (
-    <ScrollView /* style={styles.container} */>
-      <View /* style={styles.titleContainer} */>
-        <Text /* style={styles.title} */>Carpeta</Text>
-      </View>
-
-      <View>
-        <Folder />
-        <Text /* style={styles.text} */>No existe ninguna carpeta...</Text>
-      </View>
-    </ScrollView>
-  );
-}
 

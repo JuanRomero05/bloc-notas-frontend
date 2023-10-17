@@ -6,13 +6,14 @@ import {
      View,
 } from "react-native";
 
-const Folder = ({ title }) => {
+const Folder = ({ data, deleteFolder }) => {
      return (
           <View style={styles.item}>
-               <Text style={styles.title}>{title}</Text>
+               <Text style={styles.title}>{data.title}</Text>
 
                <TouchableOpacity
                     style={styles.buttonEliminar}
+                    onPress={() => deleteFolder(data.id)}
                >
                     <Text style={styles.textButton}>Eliminar</Text>
                </TouchableOpacity>

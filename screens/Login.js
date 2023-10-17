@@ -1,10 +1,13 @@
 /* Al hacer el login correctamente se redigira a la screen Menu */
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import Config from "../Config";
 
 const Login = () => {
+
+     const api = Config.apiURL;
 
      const [Login, setLogin] = useState({
           email: "",
@@ -19,12 +22,12 @@ const Login = () => {
 
      const handleLogin = async () => {
           try {
-               let baseURL = "https://bloc-api-production.up.railway.app/auth/login";
+               //let baseURL = "https://bloc-api-production.up.railway.app/auth/login";
                const body = {
                     "email": Login.email,
                     "password": Login.password
                }
-               const res = await fetch(baseURL, {
+               const res = await fetch(api + "/auth/login", {
                     method: "POST",
                     headers: {
                          "Content-Type": "application/json"

@@ -2,8 +2,11 @@
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import Config from "../Config";
 
 const Signup = () => {
+
+     const api = Config.apiURL;
 
      const [Signup, setSignup] = useState({
           user: "",
@@ -17,13 +20,13 @@ const Signup = () => {
 
      const handleWelcome = async () => {
           try {
-               let baseURL = "https://bloc-api-production.up.railway.app/auth/signup";
+               //let baseURL = "https://bloc-api-production.up.railway.app/auth/signup";
                const body = {
                     "username": Signup.user,
                     "email": Signup.email,
                     "password": Signup.password
                }
-               const res = await fetch(baseURL, {
+               const res = await fetch(api + "/auth/signup", {
                     method: "POST",
                     headers: {
                          "Content-Type": "application/json"
