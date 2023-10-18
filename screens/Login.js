@@ -3,11 +3,14 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from "reac
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { Ionicons } from "@expo/vector-icons";
 import Config from "../Config";
 
 const Login = () => {
 
      const api = Config.apiURL;
+
+     const [showPassword, setShowPassword] = useState(false);
 
      const [Login, setLogin] = useState({
           email: "",
@@ -15,6 +18,10 @@ const Login = () => {
      });
 
      const navigation = useNavigation();
+
+     const toggleShowPassword = () => {
+          setShowPassword(!showPassword);
+     };
 
      const handleChangeText = (name, value) => {
           setLogin({ ...Login, [name]: value })
@@ -59,12 +66,21 @@ const Login = () => {
                          />
                     </View>
 
-                    <View style={styles.inputGroup}>
+                    <View style={styles.inputGroupPassword}>
                          <TextInput
                               placeholder="Ingresa tu contraseña"
                               value={Login.password}
                               onChangeText={(value) => handleChangeText("password", value)}
+                              secureTextEntry={!showPassword}
+                              style={{ flex: 1 }}
                          />
+                         <TouchableOpacity onPress={toggleShowPassword}>
+                              <Ionicons
+                                   name={showPassword ? "eye-off" : "eye"}
+                                   size={24}
+                                   color="black"
+                              />
+                         </TouchableOpacity>
                     </View>
 
                     <TouchableOpacity style={styles.buttonSave} onPress={handleLogin}>
@@ -95,6 +111,14 @@ const styles = StyleSheet.create({
           padding: 40,
      },
      inputGroup: {
+          padding: 10,
+          marginBottom: 20,
+          borderWidth: 1,
+          borderColor: "#ccc",
+          borderRadius: 15,
+     },
+     inputGroupPassword: {
+          flexDirection: 'row',
           padding: 10,
           marginBottom: 20,
           borderWidth: 1,

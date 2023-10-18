@@ -12,9 +12,9 @@ const Stack = createNativeStackNavigator();
 //* 1. Crear carpeta del usuario
 //* 2. Mostrar carpeta del usuario  
 //* 3. Al guardar una carpeta me debe redireccionar a la pestaña de inicio.
-//* Al presionar una carpeta me debe abrir todas las notas que contiene, y si no tiene, dar la opcion para crear una.
-//TODO: 1. Hacer validaciones de la contraseña y el correo con las expresiones regulares.
-//TODO: 2. En el SignUp, validar lo de repetir contraseña y que estas coincidan.
+//* 4. Al presionar una carpeta me debe abrir todas las notas que contiene, y si no tiene, dar la opcion para crear una.
+//* 5. Hacer validaciones de la contraseña y el correo con las expresiones regulares.
+//? 2. En el SignUp, validar lo de repetir contraseña y que estas coincidan.
 //TODO: 3. Cerrar sesion
 //TODO: 5. Eliminar cuenta
 //TODO: 5. Modificar perfil
