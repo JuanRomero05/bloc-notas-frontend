@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+// Componente llamado por Notes.js
 
 const NewNote = () => {
+
+     const navigation = useNavigation();
 
      const [NewNote, setNewNote] = useState({
           title: "",
@@ -17,6 +22,7 @@ const NewNote = () => {
                title: "",
                description: "",
           });
+          navigation.navigate("InicioNotas");
      }
 
      return (

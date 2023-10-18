@@ -5,7 +5,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import { useTheme } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 //import Notes from "./Notes";
-import NewNote from "./NewNote";
+//import NewNote from "./NewNote";
 import NewFolder from "./NewFolder";
 import Perfil from "./Perfil";
 import Folders from "./Folders";
@@ -37,7 +37,7 @@ const Menu = () => {
                          )
                     }}
                />
-               <Tab.Screen
+               {/* <Tab.Screen
                     name="Nueva Nota"
                     component={NewNote}
                     options={{
@@ -46,7 +46,7 @@ const Menu = () => {
                               <MaterialCommunityIcons name="note-plus-outline" color="#000" size={24} />
                          )
                     }}
-               />
+               /> */}
                <Tab.Screen
                     name="Nueva Carpeta"
                     component={NewFolder}

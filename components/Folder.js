@@ -5,8 +5,16 @@ import {
      TouchableOpacity,
      View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Folder = ({ data, deleteFolder }) => {
+
+     const navigation = useNavigation();
+
+     const handleNotes = () => {
+          navigation.navigate("InicioNotas");
+     }
+
      return (
           <View style={styles.item}>
                <Text style={styles.title}>{data.title}</Text>
@@ -21,6 +29,12 @@ const Folder = ({ data, deleteFolder }) => {
                     style={styles.buttonEditar}
                >
                     <Text style={styles.textButton}>Editar</Text>
+               </TouchableOpacity>
+               <TouchableOpacity
+                    style={styles.buttonNotas}
+                    onPress={handleNotes}
+               >
+                    <Text style={styles.textButton}>Ver notas</Text>
                </TouchableOpacity>
           </View>
      );
@@ -46,6 +60,12 @@ const styles = StyleSheet.create({
      buttonEditar: {
           marginTop: 15,
           backgroundColor: "gray",
+          width: 100,
+          borderRadius: 5,
+     },
+     buttonNotas: {
+          marginTop: 15,
+          backgroundColor: "#025099",
           width: 100,
           borderRadius: 5,
      },
