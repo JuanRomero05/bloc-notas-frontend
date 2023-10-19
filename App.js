@@ -30,9 +30,9 @@ export default function App() {
             title: "Bienvenido",
             headerTitleAlign: "center",
             headerStyle: {
-              backgroundColor: "#fff",
+              backgroundColor: "#025099",
             },
-            headerTintColor: "#000",
+            headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",
             },

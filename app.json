@@ -4,7 +4,7 @@
     "slug": "bloc-notas",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/OIG.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/OIG2.png",

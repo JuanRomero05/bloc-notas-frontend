@@ -1,5 +1,5 @@
-/* Es la primera screen que se muestra al entrar en la aplicación, en ella se redigirá a Login o Signup dependiendo del caso*/
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+/* Es la primera screen que se muestra al entrar en la aplicación, en ella se muestra el Login */
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
 import Login from "./Login";
 import { useNavigation } from "@react-navigation/native";
@@ -13,7 +13,10 @@ const Welcome = () => {
 
      return (
           <View style={styles.container}>
-               <Text>Welcome (colocar imagen)</Text>
+               <Image
+                    source={require("../assets/OIG.png")}
+                    style={styles.img}
+               />
                <View>
                     <Login />
                </View>
@@ -36,6 +39,12 @@ const styles = StyleSheet.create({
           padding: 12,
           borderRadius: 15,
           width: "100%",
+     },
+     img: {
+          width: 250,
+          height: 250,
+          alignSelf: "center",
+          borderRadius: 100
      }
 });
 
