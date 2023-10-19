@@ -14,10 +14,10 @@ const Stack = createNativeStackNavigator();
 //* 3. Al guardar una carpeta me debe redireccionar a la pestaña de inicio.
 //* 4. Al presionar una carpeta me debe abrir todas las notas que contiene, y si no tiene, dar la opcion para crear una.
 //* 5. Hacer validaciones de la contraseña y el correo con las expresiones regulares.
-//? 2. En el SignUp, validar lo de repetir contraseña y que estas coincidan.
-//TODO: 3. Cerrar sesion
-//TODO: 5. Eliminar cuenta
-//TODO: 5. Modificar perfil
+//* 6. En el SignUp, validar lo de repetir contraseña y que estas coincidan.
+//TODO: Cambiar background en el TabNavigator del Menu
+//TODO: Validaciones de los botones Descartar
+//TODO: Modificar UI/UX de las notas y las carpetas
 
 export default function App() {
   return (
@@ -43,12 +43,12 @@ export default function App() {
           name="Menu"
           component={Menu}
           options={{
-            title: "Notepad",
+            title: "Jourpad",
             headerTitleAlign: "center",
             headerStyle: {
-              backgroundColor: "#fff",
+              backgroundColor: "#025099",
             },
-            headerTintColor: "#000",
+            headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",
             },
@@ -78,9 +78,9 @@ export default function App() {
             title: "Modificar Perfil",
             headerTitleAlign: "center",
             headerStyle: {
-              backgroundColor: "#fff",
+              backgroundColor: "#025099",
             },
-            headerTintColor: "#000",
+            headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",
             },

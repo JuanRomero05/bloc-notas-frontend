@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
      },
      text: {
           textAlign: "center",
-          marginTop: 20,
+          fontWeight: "bold",
+          marginTop: 220,
      }
 });
 

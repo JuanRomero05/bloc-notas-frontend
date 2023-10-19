@@ -79,9 +79,7 @@ const NewFolder = ({ navigation }) => {
 
      return (
           <ScrollView style={styles.container}>
-               <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Crea una nueva carpeta</Text>
-               </View>
+               <Text style={styles.title}>Crea una nueva carpeta</Text>
 
                <View style={styles.form}>
                     <View style={styles.inputGroup}>
@@ -93,7 +91,7 @@ const NewFolder = ({ navigation }) => {
                     </View>
 
                     <TouchableOpacity style={styles.buttonSave} onPress={saveFolder}>
-                         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
+                         <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.buttonDesc}>
@@ -109,18 +107,17 @@ const styles = StyleSheet.create({
           flex: 1,
           backgroundColor: "#fff",
      },
-     titleContainer: {
-          alignItems: 'center',
-          marginTop: 10,
-     },
      title: {
-          fontSize: 18,
-          color: "#000",
+          marginBottom: 10,
+          marginTop: 45,
+          paddingLeft: 40,
           fontWeight: "bold",
-          textAlign: "center"
+          fontSize: 18,
+          textAlign: "left"
      },
      form: {
-          padding: 40,
+          marginTop: 15,
+          paddingHorizontal: 40,
      },
      inputGroup: {
           padding: 10,
@@ -131,10 +128,12 @@ const styles = StyleSheet.create({
      },
      buttonSave: {
           alignItems: 'center',
-          backgroundColor: "#025099",
+          borderWidth: 1,
+          borderColor: "#025099",
           padding: 12,
           borderRadius: 15,
           width: "100%",
+          marginBottom: 5
      },
      buttonDesc: {
           alignItems: 'center',

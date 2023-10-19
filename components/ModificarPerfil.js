@@ -55,77 +55,80 @@ const ModificarPerfil = () => {
 
      return (
           <ScrollView style={styles.container}>
-               <Text style={{ marginBottom: 15 }}>Modificar Perfil</Text>
+               <Text style={styles.title}>Modificar Perfil</Text>
 
-               <TouchableOpacity style={styles.buttons} onPress={handleButtonPressUser}>
-                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Cambiar usuario</Text>
-               </TouchableOpacity>
-               {
-                    showTextInputUser && (
+               <View>
+                    <TouchableOpacity style={styles.buttons} onPress={handleButtonPressUser}>
+                         <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16 }}>Cambiar usuario</Text>
+                    </TouchableOpacity>
+                    {
+                         showTextInputUser && (
 
-                         <TextInput
-                              style={styles.inputGroup}
-                              placeholder="Introduce el nuevo usuario"
-                              value={user.user}
-                              onChangeText={(value) => handleChangeTextUser("user", value)}
-                         />
-
-                    )
-               }
-
-               <TouchableOpacity style={styles.buttons} onPress={handleButtonPressName}>
-                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Cambiar nombre</Text>
-               </TouchableOpacity>
-               {
-                    showTextInputName && (
-                         <TextInput
-                              style={styles.inputGroup}
-                              placeholder="Introduce el nuevo nombre"
-                              value={nombre.nombre}
-                              onChangeText={(value) => handleChangeTextName("nombre", value)}
-                         />
-                    )
-               }
-
-               <TouchableOpacity style={styles.buttons} onPress={handleButtonPressLastName}>
-                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Cambiar apellido</Text>
-               </TouchableOpacity>
-               {
-                    showTextInputLastName && (
-                         <TextInput
-                              style={styles.inputGroup}
-                              placeholder="Ingresa el nuevo apellido"
-                              value={lastName.lastName}
-                              onChangeText={(value) => handleChangeTextLastName("lastName", value)}
-                         />
-                    )
-               }
-
-               <TouchableOpacity style={styles.buttons} onPress={handleButtonPressPassword}>
-                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Cambiar contraseña</Text>
-               </TouchableOpacity>
-               {
-                    showTextInputPassword && (
-                         <View>
                               <TextInput
                                    style={styles.inputGroup}
-                                   placeholder="Ingresa la nueva contraseña"
-                                   value={password.newPassword}
-                                   onChangeText={(value) => handleChangeTextPassword("newPassword", value)}
+                                   placeholder="Introduce el nuevo usuario"
+                                   value={user.user}
+                                   onChangeText={(value) => handleChangeTextUser("user", value)}
                               />
+
+                         )
+                    }
+
+                    <TouchableOpacity style={styles.buttons} onPress={handleButtonPressName}>
+                         <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16 }}>Cambiar nombre</Text>
+                    </TouchableOpacity>
+                    {
+                         showTextInputName && (
                               <TextInput
                                    style={styles.inputGroup}
-                                   placeholder="Repite la contraseña"
-                                   value={password.repeatPassword}
-                                   onChangeText={(value) => handleChangeTextPassword("repeatPassword", value)}
+                                   placeholder="Introduce el nuevo nombre"
+                                   value={nombre.nombre}
+                                   onChangeText={(value) => handleChangeTextName("nombre", value)}
                               />
-                         </View>
-                    )
-               }
+                         )
+                    }
 
-               <TouchableOpacity style={styles.buttonSave} /* onPress={Save} */>
-                    <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
-               </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttons} onPress={handleButtonPressLastName}>
+                         <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16 }}>Cambiar apellido</Text>
+                    </TouchableOpacity>
+                    {
+                         showTextInputLastName && (
+                              <TextInput
+                                   style={styles.inputGroup}
+                                   placeholder="Ingresa el nuevo apellido"
+                                   value={lastName.lastName}
+                                   onChangeText={(value) => handleChangeTextLastName("lastName", value)}
+                              />
+                         )
+                    }
+
+                    <TouchableOpacity style={styles.buttons} onPress={handleButtonPressPassword}>
+                         <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16 }}>Cambiar contraseña</Text>
+                    </TouchableOpacity>
+                    {
+                         showTextInputPassword && (
+                              <View>
+                                   <TextInput
+                                        style={styles.inputGroup}
+                                        placeholder="Ingresa la nueva contraseña"
+                                        value={password.newPassword}
+                                        onChangeText={(value) => handleChangeTextPassword("newPassword", value)}
+                                   />
+                                   <TextInput
+                                        style={styles.inputGroup}
+                                        placeholder="Repite la contraseña"
+                                        value={password.repeatPassword}
+                                        onChangeText={(value) => handleChangeTextPassword("repeatPassword", value)}
+                                   />
+                              </View>
+                         )
+                    }
+
+                    <TouchableOpacity style={styles.buttonSave} /* onPress={Save} */>
+                         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
+                    </TouchableOpacity>
+
+               </View>
 
           </ScrollView>
      );
@@ -135,13 +138,21 @@ export default ModificarPerfil;
 
 const styles = StyleSheet.create({
      container: {
-          flex: 1,
+          /* flex: 1, */
           padding: 40,
+     },
+     title: {
+          marginBottom: 15,
+          marginTop: 0,
+          fontWeight: "bold",
+          fontSize: 18,
+          textAlign: "left"
      },
      buttons: {
           alignItems: 'center',
           borderWidth: 1,
-          backgroundColor: "#025099",
+          borderColor: "#025099",
+
           padding: 12,
           borderRadius: 15,
           width: "100%",
@@ -157,10 +168,11 @@ const styles = StyleSheet.create({
      buttonSave: {
           alignItems: 'center',
           borderWidth: 1,
-          borderColor: "#025099",
+          backgroundColor: "#025099",
           padding: 12,
           borderRadius: 15,
           width: "100%",
-          marginTop: 30
+          marginTop: 30,
+          marginBottom: 50
      }
 });

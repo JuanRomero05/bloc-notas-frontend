@@ -1,6 +1,7 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Perfil = () => {
 
@@ -52,18 +53,21 @@ const Perfil = () => {
 
      return (
           <View style={styles.container}>
-               <Text style={{ marginBottom: 15 }}>Ajustes</Text>
+               <Text style={styles.title}>Ajustes</Text>
 
                <TouchableOpacity style={styles.buttonModify} onPress={handleModifyProfile}>
-                    <Text style={{ color: "white", fontWeight: "bold", fontSize: 16 }}>Modificar perfil</Text>
+                    <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16, marginEnd: 5, marginStart: 75 }}>Modificar perfil</Text>
+                    <MaterialCommunityIcons name="account-wrench-outline" size={24} color="#025099" />
                </TouchableOpacity>
 
                <TouchableOpacity style={styles.buttonsLeft} onPress={handleLogout}>
-                    <Text style={{ color: "red", fontWeight: "bold", fontSize: 16 }}>Cerrar sesión</Text>
+                    <Text style={{ color: "red", fontWeight: "bold", fontSize: 16, marginEnd: 5, marginStart: 75 }}>Cerrar sesión</Text>
+                    <MaterialCommunityIcons name="arrow-collapse-right" size={24} color="red" />
                </TouchableOpacity>
 
                <TouchableOpacity style={styles.buttonsLeft} onPress={handleDeleteAccount}>
-                    <Text style={{ color: "red", fontWeight: "bold", fontSize: 16 }}>Eliminar cuenta</Text>
+                    <Text style={{ color: "red", fontWeight: "bold", fontSize: 16, marginEnd: 5, marginStart: 75 }}>Eliminar cuenta</Text>
+                    <MaterialCommunityIcons name="account-remove-outline" size={24} color="red" />
                </TouchableOpacity>
           </View>
      );
@@ -76,16 +80,25 @@ const styles = StyleSheet.create({
           flex: 1,
           padding: 40,
      },
+     title: {
+          marginBottom: 15,
+          marginTop: 20,
+          fontWeight: "bold",
+          fontSize: 18,
+          textAlign: "left"
+     },
      buttonModify: {
+          flexDirection: 'row',
           alignItems: 'center',
           borderWidth: 1,
-          backgroundColor: "#025099",
+          borderColor: "#025099",
           padding: 12,
           borderRadius: 15,
           width: "100%",
           marginBottom: 15,
      },
      buttonsLeft: {
+          flexDirection: 'row',
           alignItems: 'center',
           borderWidth: 1,
           borderColor: "red",
