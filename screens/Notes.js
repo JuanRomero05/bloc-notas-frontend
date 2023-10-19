@@ -1,16 +1,79 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Note from "../components/Note";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import Config from "../Config";
 
 // Componente llamado por Folder.js. Este muestra todas las notas de una determinada carpeta.
 
 const Notes = () => {
 
+     const api = Config.apiURL;
+
+     const [notesUser, setNotesUser] = useState([]);
+     const route = useRoute()
+     const folderId = route.params.folderId;
+
+     useEffect(() => {
+          getNotes();
+     });
+
      const navigation = useNavigation();
 
      const handleNewNote = () => {
           navigation.navigate("NuevaNota");
+     }
+
+     const getNotes = async () => {
+
+          try {
+               const token = await AsyncStorage.getItem('token');
+               const res = await fetch(api + `/notes/folder/${folderId}`, {
+                    method: "GET",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+               });
+               const response = await res;
+               if (response.status === 200) {
+                    const data = await response.json()
+                    setNotesUser(data);
+               } else {
+                    const data = await response.json()
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+          } catch (error) {
+               Alert.alert("Error", error.message)
+          }
+
+     }
+
+     const deleteNote = async (id) => {
+
+          try {
+               const token = await AsyncStorage.getItem('token');
+               const res = await fetch(api + `/folders/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+               })
+               const response = await res
+               if (response.status === 200) {
+                    Alert.alert("Nota borrada", "Se ha eliminado la nota exitosamente");
+                    getNotes();
+               } else {
+                    const data = await response.json()
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
+
      }
 
      return (
@@ -21,8 +84,14 @@ const Notes = () => {
                </View>
 
                <View>
-                    <Note />
-                    <Text style={styles.text}>No existen notas...</Text>
+                    {notesUser.length > 0 ? (
+                         notesUser.map((data, index) => (
+                              <Note key={index} data={data} deleteNote={() => deleteNote(data._id)} />
+                         ))
+                    ) : (
+                         <Text style={styles.text}>No existen notas...</Text>
+                    )}
+
                </View>
 
                <View style={styles.addButtonContainer}>

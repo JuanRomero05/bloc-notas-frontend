@@ -17,18 +17,22 @@ const Folders = () => {
 
      const getFolders = async () => {
 
-          //const baseURL = "https://bloc-api-production.up.railway.app/folders/user";
-          const token = await AsyncStorage.getItem('token');
-          const res = await fetch(api + "/folders/user", {
-               method: "GET",
-               headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-               },
-          });
-          const response = await res;
-          const data = await response.json()
-          setFoldersUser(data);
+          try {
+               const token = await AsyncStorage.getItem('token');
+               const res = await fetch(api + "/folders/user", {
+                    method: "GET",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+               });
+               const response = await res;
+               const data = await response.json()
+               setFoldersUser(data);
+          } catch (error) {
+               Alert.alert("Error", "Ha ocurrido un error al realizar el fetch.")
+          }
+
      }
 
      const deleteFolder = async (id) => {
@@ -56,7 +60,7 @@ const Folders = () => {
 
      }
 
-     const editFolder = async (id) => {
+     /* const editFolder = async (id) => {
 
           try {
                const token = await AsyncStorage.getItem('token');
@@ -83,7 +87,7 @@ const Folders = () => {
                Alert.alert("Error al realizar el fetch", error);
           }
 
-     }
+     } */
 
      return (
           <ScrollView style={styles.container}>
@@ -94,7 +98,7 @@ const Folders = () => {
                <View>
                     {foldersUser.length > 0 ? (
                          foldersUser.map((data, index) => (
-                              <Folder key={index} data={data} deleteFolder={() => deleteFolder(data._id)} editFolder={() => editFolder(data._id)} />
+                              <Folder key={index} data={data} deleteFolder={() => deleteFolder(data._id)} />
                          ))
                     ) : (
                          <Text style={styles.text}>No existe ninguna carpeta...</Text>

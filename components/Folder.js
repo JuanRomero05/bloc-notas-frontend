@@ -2,17 +2,19 @@
 import {
      StyleSheet,
      Text,
+     TextInput,
      TouchableOpacity,
      View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
-const Folder = ({ data, deleteFolder, editFolder }) => {
+const Folder = ({ data, deleteFolder }) => {
 
      const navigation = useNavigation();
 
      const handleNotes = () => {
-          navigation.navigate("InicioNotas");
+          navigation.navigate("InicioNotas", { folderId: data._id });
      }
 
      return (
@@ -28,9 +30,9 @@ const Folder = ({ data, deleteFolder, editFolder }) => {
 
                <TouchableOpacity
                     style={styles.buttonEditar}
-                    onPress={() => editFolder(data._id)}
+               /* onPress={() => handleEditFolder} */
                >
-                    <Text style={styles.textButton}>Editar</Text>
+                    <Text style={styles.textButton}>Editar título</Text>
                </TouchableOpacity>
 
                <TouchableOpacity
@@ -39,6 +41,16 @@ const Folder = ({ data, deleteFolder, editFolder }) => {
                >
                     <Text style={styles.textButton}>Ver notas</Text>
                </TouchableOpacity>
+
+               {/* <View>
+                    <TextInput
+                         value={newTitle}
+                         onChangeText={setNewTitle}
+                    />
+                    <TouchableOpacity onPress={handleEditFolder}>
+                         <Text>Edit Title</Text>
+                    </TouchableOpacity>
+               </View> */}
           </View>
      );
 };
