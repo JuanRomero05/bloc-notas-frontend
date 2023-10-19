@@ -6,16 +6,17 @@ import {
      View,
 } from "react-native";
 
-const Note = () => {
+const Note = ({ data, deleteNote }) => {
      return (
           <View style={styles.item}>
-               <Text style={styles.title}>Title</Text>
+               <Text style={styles.title}>{data.title}</Text>
                <View style={styles.description}>
-                    <Text style={styles.textDescription}>Description</Text>
+                    <Text style={styles.textDescription}>{data.content}</Text>
                </View>
 
                <TouchableOpacity
                     style={styles.buttonEliminar}
+                    onPress={() => deleteNote(data._id)}
                >
                     <Text style={styles.textButton}>Eliminar</Text>
                </TouchableOpacity>

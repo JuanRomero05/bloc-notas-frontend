@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Config from "../Config";
 // Componente llamado por Notes.js
@@ -9,30 +9,57 @@ const NewNote = () => {
 
      const api = Config.apiURL;
 
+     const route = useRoute()
+     const folderId = route.params.folderId;
+
      const navigation = useNavigation();
 
      const [NewNote, setNewNote] = useState({
           title: "",
-          description: ""
+          content: ""
      });
 
      const handleChangeText = (name, value) => {
           setNewNote({ ...NewNote, [name]: value })
      }
 
-     const saveNote = () => {
-          setNewNote({
-               title: "",
-               description: "",
-          });
-          navigation.navigate("InicioNotas");
+     const saveNote = async () => {
+
+          try {
+               const token = await AsyncStorage.getItem('token');
+               const body = {
+                    "title": NewNote.title,
+                    "content": NewNote.content,
+                    "folderId": folderId
+               }
+               const res = await fetch(api + "/notes", {
+                    method: "POST",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+               });
+               const response = await res
+               if (response.status === 201) {
+                    setNewNote({
+                         title: "",
+                         content: "",
+                    });
+                    navigation.navigate("InicioNotas", { folderId: folderId });
+               } else {
+                    const data = await response.json()
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
+
      }
 
      return (
           <ScrollView style={styles.container}>
-               <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Crea una nueva nota</Text>
-               </View>
+               <Text style={styles.title}>Crea una nueva nota</Text>
 
                <View style={styles.form}>
                     <View style={styles.inputGroup}>
@@ -46,11 +73,11 @@ const NewNote = () => {
                     <View style={styles.inputGroup}>
                          <TextInput
                               placeholder="Introduce la descripción de la nota"
-                              value={NewNote.description}
+                              value={NewNote.content}
                               multiline={true}
                               numberOfLines={20}
                               style={{ textAlignVertical: "top" }}
-                              onChangeText={(value) => handleChangeText("description", value)}
+                              onChangeText={(value) => handleChangeText("content", value)}
                          />
                     </View>
 
@@ -71,18 +98,18 @@ const styles = StyleSheet.create({
           flex: 1,
           backgroundColor: "#fff",
      },
-     titleContainer: {
-          alignItems: 'center',
-          marginTop: 10,
-     },
      title: {
           fontSize: 18,
           color: "#000",
           fontWeight: "bold",
-          textAlign: "center"
+          textAlign: "left",
+          marginTop: 25,
+          marginBottom: 15,
+          paddingLeft: 40
      },
      form: {
-          padding: 40,
+          paddingHorizontal: 40,
+          paddingBottom: 40
      },
      inputGroup: {
           padding: 10,

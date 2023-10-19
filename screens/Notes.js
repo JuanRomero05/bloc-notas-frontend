@@ -23,7 +23,7 @@ const Notes = () => {
      const navigation = useNavigation();
 
      const handleNewNote = () => {
-          navigation.navigate("NuevaNota");
+          navigation.navigate("NuevaNota", { folderId: folderId });
      }
 
      const getNotes = async () => {
@@ -55,7 +55,7 @@ const Notes = () => {
 
           try {
                const token = await AsyncStorage.getItem('token');
-               const res = await fetch(api + `/folders/${id}`, {
+               const res = await fetch(api + `/notes/${id}`, {
                     method: "DELETE",
                     headers: {
                          "Content-Type": "application/json",
@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
      },
      text: {
           textAlign: "center",
-          marginTop: 20,
+          marginTop: 220,
+          fontWeight: "bold"
      },
      addButtonContainer: {
           position: "absolute",

@@ -94,9 +94,9 @@ export default function App() {
             title: "Notas",
             headerTitleAlign: "center",
             headerStyle: {
-              backgroundColor: "#fff",
+              backgroundColor: "#025099",
             },
-            headerTintColor: "#000",
+            headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",
             },
@@ -110,9 +110,9 @@ export default function App() {
             title: "Nueva Nota",
             headerTitleAlign: "center",
             headerStyle: {
-              backgroundColor: "#fff",
+              backgroundColor: "#025099",
             },
-            headerTintColor: "#000",
+            headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",
             },
