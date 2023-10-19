@@ -7,9 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Welcome = () => {
-     const [session, setSession] = useState(true)
+     //const [session, setSession] = useState(true)
      const navigation = useNavigation();
 
+     /*
      // al abrir la aplicacion, verifica si ya hay una sesion iniciada
      useEffect(() => {
           const verifyToken = async () => {
@@ -23,31 +24,26 @@ const Welcome = () => {
 
           verifyToken()
      }, [])
+     */
 
      const handleSignup = () => {
           navigation.navigate("Signup")
      }
 
      return (
-          <View>
-               {/*TODO: implementar loading donde dice null*/}
-               { session ? null : (
-                    <View style={styles.container}>
-                         <Image
-                              source={require("../assets/OIG.png")}
-                              style={styles.img}
-                         />
-                         <View>
-                              <Login />
-                         </View>
-                         <TouchableOpacity style={styles.buttonRegister} onPress={handleSignup}>
-                              <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Registrarse</Text>
-                         </TouchableOpacity>
-                    </View>
-                    )
-               }
+          <View style={styles.container}>
+               <Image
+                    source={require("../assets/OIG.png")}
+                    style={styles.img}
+               />
+               <View>
+                    <Login />
+               </View>
+               <TouchableOpacity style={styles.buttonRegister} onPress={handleSignup}>
+                    <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Registrarse</Text>
+               </TouchableOpacity>
           </View>
-     );
+     )
 };
 
 const styles = StyleSheet.create({
