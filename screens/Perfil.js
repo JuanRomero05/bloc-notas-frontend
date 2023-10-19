@@ -2,6 +2,7 @@ import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Perfil = () => {
 
@@ -22,8 +23,16 @@ const Perfil = () => {
                     },
                     {
                          text: 'Confirmar',
-                         onPress: () => {
-                              // Lógica para cerrar sesión
+                         onPress: async () => {
+                              try {
+                                   var i = 0;
+                                   console.log(i++);
+                                   await AsyncStorage.removeItem('token');
+                                   console.log(i++);
+                                   navigation.navigate("Welcome")
+                              } catch (error) {
+                                   Alert.alert("Error", "Ha ocurrido un error al intentar cerrar sesión");
+                              }
                          },
                     },
                ],

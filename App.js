@@ -22,7 +22,9 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      /* screenOptions={{ headerBackVisible: false }} */
+      >
         <Stack.Screen
           name="Welcome"
           component={Welcome}
@@ -52,7 +54,9 @@ export default function App() {
             headerTitleStyle: {
               fontWeight: "bold",
             },
+            headerBackVisible: false,
           }}
+
         />
 
         <Stack.Screen
