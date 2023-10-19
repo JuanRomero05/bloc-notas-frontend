@@ -118,7 +118,7 @@ const Signup = () => {
                     </View>
 
                     {Signup.email && !validateEmail(Signup.email) && (
-                         <Text style={styles.errorText}>El correo debe contener en el nombre de usuario letras mayúsculas y minúsculas, dígitos del 0 al 9 y el carácter de punto. Seguido de un @, el dominio del correo, seguido del caracter punto y la terminación correspondiente.</Text>
+                         <Text style={styles.errorText}>Dirección de email inválida.</Text>
                     )}
 
                     <View style={styles.inputGroup}>

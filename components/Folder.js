@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const Folder = ({ data, deleteFolder }) => {
+const Folder = ({ data, deleteFolder, editFolder }) => {
 
      const navigation = useNavigation();
 
@@ -21,15 +21,18 @@ const Folder = ({ data, deleteFolder }) => {
 
                <TouchableOpacity
                     style={styles.buttonEliminar}
-                    onPress={() => deleteFolder(data.id)}
+                    onPress={() => deleteFolder(data._id)}
                >
                     <Text style={styles.textButton}>Eliminar</Text>
                </TouchableOpacity>
+
                <TouchableOpacity
                     style={styles.buttonEditar}
+                    onPress={() => editFolder(data._id)}
                >
                     <Text style={styles.textButton}>Editar</Text>
                </TouchableOpacity>
+
                <TouchableOpacity
                     style={styles.buttonNotas}
                     onPress={handleNotes}

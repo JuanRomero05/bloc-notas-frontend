@@ -32,30 +32,57 @@ const Folders = () => {
      }
 
      const deleteFolder = async (id) => {
-          const sendBody = {
-               id: id
-          }
-          const token = await AsyncStorage.getItem('token');
-          await fetch(api + "/folderDelete", {
-               method: "POST",
-               headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-               },
-               body: JSON.stringify(sendBody),
-          })
-               .then((res) => res.json())
-               .catch((error) => {
-                    Alert.alert("Error", "Se ha producido un error");
+
+          try {
+               const token = await AsyncStorage.getItem('token');
+               const res = await fetch(api + `/folders/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
                })
-               .then((response) => {
-                    if (response.message == "error") {
-                         Alert.alert("¡Error!", "Error al recibir respuesta");
-                    } else {
-                         //Obtenemos la respuesta del backend
-                         getFolders();
-                    }
-               });
+               const response = await res
+               if (response.status === 200) {
+                    Alert.alert("Carpeta borrada", "Se ha borrado la carpeta exitosamente");
+                    getFolders();
+               } else {
+                    const data = await response.json()
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
+
+     }
+
+     const editFolder = async (id) => {
+
+          try {
+               const token = await AsyncStorage.getItem('token');
+               const sendBody = {
+                    "title": "",
+               }
+               const res = await fetch(api + `/folders/${id}`, {
+                    method: "PUT",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(sendBody)
+               })
+               const response = await res
+               if (response.status === 200) {
+                    Alert.alert("Carpeta actualizada", "Se ha actualizado la carpeta exitosamente.");
+                    getFolders();
+               } else {
+                    const data = await response.json()
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
+
      }
 
      return (
@@ -67,7 +94,7 @@ const Folders = () => {
                <View>
                     {foldersUser.length > 0 ? (
                          foldersUser.map((data, index) => (
-                              <Folder key={index} data={data} deleteFolder={deleteFolder} />
+                              <Folder key={index} data={data} deleteFolder={() => deleteFolder(data._id)} editFolder={() => editFolder(data._id)} />
                          ))
                     ) : (
                          <Text style={styles.text}>No existe ninguna carpeta...</Text>
