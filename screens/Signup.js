@@ -6,12 +6,12 @@ import Config from "../Config";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-
 const Signup = () => {
 
      const api = Config.apiURL;
 
      const [showPassword, setShowPassword] = useState(false);
+     const [confirmPassword, setConfirmPassword] = useState("");
 
      const [Signup, setSignup] = useState({
           user: "",
@@ -43,6 +43,11 @@ const Signup = () => {
 
      const handleWelcome = async () => {
 
+          if (Signup.password !== confirmPassword) {
+               Alert.alert("Las contraseñas no coinciden");
+               return;
+          }
+
           try {
                //let baseURL = "https://bloc-api-production.up.railway.app/auth/signup";
                const body = {
@@ -59,6 +64,8 @@ const Signup = () => {
                });
                const response = await res
                if (response.status === 201) {
+                    Alert.alert("Registro exitoso", "Usted se ha registrado exitosamente.")
+
                     navigation.navigate("Welcome");
                } else {
                     const data = await response.json()
@@ -67,8 +74,8 @@ const Signup = () => {
           } catch (error) {
                Alert.alert("Error al realizar el fetch", error);
           }
-     }
 
+     }
 
      return (
           <ScrollView style={styles.container}>
@@ -134,6 +141,28 @@ const Signup = () => {
 
                     {Signup.password && !validatePassword(Signup.password) && (
                          <Text style={styles.errorText}>La contraseña debe tener una longitud de almenos 8 caracteres, almenos un caracter numérico y letras mayúsculas o minúsculas</Text>
+                    )}
+
+                    <View style={styles.inputGroup}>
+                         <MaterialCommunityIcons name="lock-outline" size={24} color="black" style={{ marginEnd: 5 }} />
+                         <TextInput
+                              placeholder="Confirmar contraseña"
+                              value={confirmPassword}
+                              onChangeText={(value) => setConfirmPassword(value)}
+                              secureTextEntry={!showPassword}
+                              style={{ flex: 1 }}
+                         />
+                         <TouchableOpacity onPress={toggleShowPassword}>
+                              <Ionicons
+                                   name={showPassword ? "eye-off" : "eye"}
+                                   size={24}
+                                   color="black"
+                              />
+                         </TouchableOpacity>
+                    </View>
+
+                    {Signup.password && confirmPassword && Signup.password !== confirmPassword && (
+                         <Text style={styles.errorText}>Las contraseñas no coinciden</Text>
                     )}
 
                     <TouchableOpacity style={styles.buttonSave} onPress={handleWelcome}>

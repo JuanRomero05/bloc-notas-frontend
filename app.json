@@ -7,8 +7,8 @@
     "icon": "./assets/OIG.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/OIG2.png",
-      "resizeMode": "cover",
+      "image": "./assets/splash-notepad.png",
+      "resizeMode": "contain", 
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
