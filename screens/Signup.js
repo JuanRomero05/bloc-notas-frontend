@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Config from "../Config";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 const Signup = () => {
 
@@ -71,8 +73,9 @@ const Signup = () => {
      return (
           <ScrollView style={styles.container}>
                <View style={styles.form}>
-                    <Text>Registro</Text>
+                    <Text style={styles.title}>Regístrate!</Text>
                     <View style={styles.inputGroup}>
+                         <MaterialCommunityIcons name="account-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Nombre de usuario"
                               value={Signup.user}
@@ -81,6 +84,7 @@ const Signup = () => {
                     </View>
 
                     <View style={styles.inputGroup}>
+                         <MaterialCommunityIcons name="card-account-details-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Nombre"
                               value={Signup.name}
@@ -89,6 +93,7 @@ const Signup = () => {
                     </View>
 
                     <View style={styles.inputGroup}>
+                         <MaterialCommunityIcons name="card-account-details-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Apellido"
                               value={Signup.lastName}
@@ -97,6 +102,7 @@ const Signup = () => {
                     </View>
 
                     <View style={styles.inputGroup}>
+                         <MaterialCommunityIcons name="email-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Correo"
                               value={Signup.email}
@@ -108,7 +114,8 @@ const Signup = () => {
                          <Text style={styles.errorText}>El correo debe contener en el nombre de usuario letras mayúsculas y minúsculas, dígitos del 0 al 9 y el carácter de punto. Seguido de un @, el dominio del correo, seguido del caracter punto y la terminación correspondiente.</Text>
                     )}
 
-                    <View style={styles.inputGroupPassword}>
+                    <View style={styles.inputGroup}>
+                         <MaterialCommunityIcons name="lock-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Contraseña"
                               value={Signup.password}
@@ -147,22 +154,16 @@ const styles = StyleSheet.create({
           marginTop: 10,
      },
      title: {
-          fontSize: 18,
-          color: "#000",
+          marginBottom: 15,
+          marginTop: 5,
           fontWeight: "bold",
-          textAlign: "center"
+          fontSize: 18,
+          textAlign: "left"
      },
      form: {
           padding: 40,
      },
      inputGroup: {
-          padding: 10,
-          marginBottom: 20,
-          borderWidth: 1,
-          borderColor: "#ccc",
-          borderRadius: 15,
-     },
-     inputGroupPassword: {
           flexDirection: 'row',
           padding: 10,
           marginBottom: 20,

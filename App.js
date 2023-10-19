@@ -59,12 +59,12 @@ export default function App() {
           name="Signup"
           component={Signup}
           options={{
-            title: "Signup",
+            title: "Registro",
             headerTitleAlign: "center",
             headerStyle: {
-              backgroundColor: "#fff",
+              backgroundColor: "#025099",
             },
-            headerTintColor: "#000",
+            headerTintColor: "#fff",
             headerTitleStyle: {
               fontWeight: "bold",
             },

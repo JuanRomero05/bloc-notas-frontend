@@ -58,7 +58,7 @@ const Login = () => {
      return (
           <ScrollView>
                <Text style={styles.title}>Iniciar Sesión</Text>
-               <View style={styles.inputGroupEmail}>
+               <View style={styles.inputGroup}>
                     <MaterialCommunityIcons name="email-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                     <TextInput
                          placeholder="Ingresa tu correo"
@@ -67,7 +67,7 @@ const Login = () => {
                     />
                </View>
 
-               <View style={styles.inputGroupPassword}>
+               <View style={styles.inputGroup}>
                     <MaterialCommunityIcons name="lock-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                     <TextInput
                          placeholder="Ingresa tu contraseña"
@@ -103,20 +103,11 @@ const styles = StyleSheet.create({
           fontWeight: "bold",
           fontSize: 18,
           textAlign: "left"
-     }
-     ,
+     },
      form: {
           padding: 40,
      },
-     inputGroupEmail: {
-          flexDirection: 'row',
-          padding: 10,
-          marginBottom: 20,
-          borderWidth: 1,
-          borderColor: "#ccc",
-          borderRadius: 15,
-     },
-     inputGroupPassword: {
+     inputGroup: {
           flexDirection: 'row',
           padding: 10,
           marginBottom: 20,
