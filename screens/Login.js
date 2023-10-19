@@ -1,9 +1,10 @@
 /* Al hacer el login correctamente se redigira a la screen Menu */
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Config from "../Config";
 
 const Login = () => {
@@ -55,40 +56,39 @@ const Login = () => {
      }
 
      return (
-          <View>
-               <View /* style={styles.form} */>
-                    <Text style={{ marginBottom: 15, marginTop: 25 }}>Iniciar Sesión</Text>
-                    <View style={styles.inputGroup}>
-                         <TextInput
-                              placeholder="Ingresa tu correo"
-                              value={Login.email}
-                              onChangeText={(value) => handleChangeText("email", value)}
-                         />
-                    </View>
-
-                    <View style={styles.inputGroupPassword}>
-                         <TextInput
-                              placeholder="Ingresa tu contraseña"
-                              value={Login.password}
-                              onChangeText={(value) => handleChangeText("password", value)}
-                              secureTextEntry={!showPassword}
-                              style={{ flex: 1 }}
-                         />
-                         <TouchableOpacity onPress={toggleShowPassword}>
-                              <Ionicons
-                                   name={showPassword ? "eye-off" : "eye"}
-                                   size={24}
-                                   color="black"
-                              />
-                         </TouchableOpacity>
-                    </View>
-
-                    <TouchableOpacity style={styles.buttonSave} onPress={handleLogin}>
-                         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Iniciar sesión</Text>
-                    </TouchableOpacity>
-
+          <ScrollView>
+               <Text style={styles.title}>Iniciar Sesión</Text>
+               <View style={styles.inputGroupEmail}>
+                    <MaterialCommunityIcons name="email-outline" size={24} color="black" style={{ marginEnd: 5 }} />
+                    <TextInput
+                         placeholder="Ingresa tu correo"
+                         value={Login.email}
+                         onChangeText={(value) => handleChangeText("email", value)}
+                    />
                </View>
-          </View>
+
+               <View style={styles.inputGroupPassword}>
+                    <MaterialCommunityIcons name="lock-outline" size={24} color="black" style={{ marginEnd: 5 }} />
+                    <TextInput
+                         placeholder="Ingresa tu contraseña"
+                         value={Login.password}
+                         onChangeText={(value) => handleChangeText("password", value)}
+                         secureTextEntry={!showPassword}
+                         style={{ flex: 1 }}
+                    />
+                    <TouchableOpacity onPress={toggleShowPassword}>
+                         <Ionicons
+                              name={showPassword ? "eye-off" : "eye"}
+                              size={24}
+                              color="black"
+                         />
+                    </TouchableOpacity>
+               </View>
+
+               <TouchableOpacity style={styles.buttonSave} onPress={handleLogin}>
+                    <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Iniciar sesión</Text>
+               </TouchableOpacity>
+          </ScrollView>
      );
 };
 
@@ -97,20 +97,19 @@ const styles = StyleSheet.create({
           flex: 1,
           backgroundColor: "#fff",
      },
-     titleContainer: {
-          alignItems: 'center',
-          marginTop: 10,
-     },
      title: {
-          fontSize: 18,
-          color: "#000",
+          marginBottom: 15,
+          marginTop: 25,
           fontWeight: "bold",
-          textAlign: "center"
-     },
+          fontSize: 18,
+          textAlign: "left"
+     }
+     ,
      form: {
           padding: 40,
      },
-     inputGroup: {
+     inputGroupEmail: {
+          flexDirection: 'row',
           padding: 10,
           marginBottom: 20,
           borderWidth: 1,
