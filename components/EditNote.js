@@ -1,56 +1,58 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Config from "../Config";
-// Componente llamado por Notes.js
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-const NewNote = () => {
+const EditNote = () => {
 
      const api = Config.apiURL;
 
      const route = useRoute()
-     const folderId = route.params.folderId;
+     const { folderId, id, title, content } = route.params
+
+     const [editNote, setEditNote] = useState({
+          id: id,
+          title: title,
+          content: content
+     });
 
      const navigation = useNavigation();
 
-     const [NewNote, setNewNote] = useState({
-          title: "",
-          content: ""
-     });
-
      const handleChangeText = (name, value) => {
-          setNewNote({ ...NewNote, [name]: value })
+          setEditNote({ ...editNote, [name]: value })
      }
 
-     const saveNote = async () => {
-
+     const saveEditNote = async () => {
           try {
+
                const token = await AsyncStorage.getItem('token');
-               const body = {
-                    "title": NewNote.title,
-                    "content": NewNote.content,
-                    "folderId": folderId
+
+               const sendBody = {
+                    "title": editNote.title,
+                    "content": editNote.content
                }
-               const res = await fetch(api + "/notes", {
-                    method: "POST",
+
+               const res = await fetch(api + `/notes/${id}`, {
+                    method: "PUT",
                     headers: {
                          "Content-Type": "application/json",
                          "Authorization": `Bearer ${token}`
                     },
-                    body: JSON.stringify(body)
+                    body: JSON.stringify(sendBody)
                });
-               const response = await res
-               if (response.status === 201) {
-                    setNewNote({
-                         title: "",
-                         content: "",
-                    });
-                    navigation.navigate("InicioNotas", { folderId: folderId });
+
+               const response = await res;
+
+               const data = await response.json()
+
+               if (response.status === 200) {
+                    Alert.alert("Titulo modificado", "Se ha modificado el título de la carpeta correctamente")
+                    navigation.navigate("InicioNotas", { folderId })
                } else {
-                    const data = await response.json()
                     Alert.alert(`${response.status}, ${data.msg}`)
                }
+
           } catch (error) {
                Alert.alert("Error al realizar el fetch", error);
           }
@@ -59,21 +61,21 @@ const NewNote = () => {
 
      return (
           <ScrollView style={styles.container}>
-               <Text style={styles.title}>Crea una nueva nota</Text>
+               <Text style={styles.title}>Editar Nota</Text>
 
                <View style={styles.form}>
                     <View style={styles.inputGroup}>
                          <TextInput
-                              placeholder="Introduce el título de la nota"
-                              value={NewNote.title}
+                              placeholder="Introduce el nuevo título de la carpeta"
+                              value={editNote.title}
                               onChangeText={(value) => handleChangeText("title", value)}
                          />
                     </View>
 
                     <View style={styles.inputGroup}>
                          <TextInput
-                              placeholder="Introduce el contenido de la nota"
-                              value={NewNote.content}
+                              placeholder="Introduce el nuevo contenido de la nota"
+                              value={editNote.content}
                               multiline={true}
                               numberOfLines={20}
                               style={{ textAlignVertical: "top" }}
@@ -81,8 +83,8 @@ const NewNote = () => {
                          />
                     </View>
 
-                    <TouchableOpacity style={styles.buttonSave} onPress={saveNote}>
-                         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
+                    <TouchableOpacity style={styles.buttonSave} onPress={saveEditNote}>
+                         <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.buttonDesc}>
@@ -99,17 +101,16 @@ const styles = StyleSheet.create({
           backgroundColor: "#fff",
      },
      title: {
-          fontSize: 18,
-          color: "#000",
+          marginBottom: 10,
+          marginTop: 45,
+          paddingLeft: 40,
           fontWeight: "bold",
-          textAlign: "left",
-          marginTop: 25,
-          marginBottom: 15,
-          paddingLeft: 40
+          fontSize: 18,
+          textAlign: "left"
      },
      form: {
+          marginTop: 15,
           paddingHorizontal: 40,
-          paddingBottom: 40
      },
      inputGroup: {
           padding: 10,
@@ -120,10 +121,12 @@ const styles = StyleSheet.create({
      },
      buttonSave: {
           alignItems: 'center',
-          backgroundColor: "#025099",
+          borderWidth: 1,
+          borderColor: "#025099",
           padding: 12,
           borderRadius: 15,
           width: "100%",
+          marginBottom: 5
      },
      buttonDesc: {
           alignItems: 'center',
@@ -135,4 +138,4 @@ const styles = StyleSheet.create({
      },
 });
 
-export default NewNote;
+export default EditNote;

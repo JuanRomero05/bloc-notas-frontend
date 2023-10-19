@@ -6,6 +6,8 @@ import Signup from "./screens/Signup";
 import ModificarPerfil from "./components/ModificarPerfil";
 import Notes from "./screens/Notes";
 import NewNote from "./screens/NewNote";
+import EditFolder from "./components/EditFolder";
+import EditNote from "./components/EditNote";
 
 const Stack = createNativeStackNavigator();
 
@@ -112,6 +114,38 @@ export default function App() {
           component={NewNote}
           options={{
             title: "Nueva Nota",
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#025099",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
+
+        <Stack.Screen
+          name="EditarCarpeta"
+          component={EditFolder}
+          options={{
+            title: "Editar Carpeta",
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: "#025099",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
+
+        <Stack.Screen
+          name="EditarNota"
+          component={EditNote}
+          options={{
+            title: "Editar Nota",
             headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "#025099",

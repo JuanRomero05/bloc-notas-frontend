@@ -17,6 +17,10 @@ const Folder = ({ data, deleteFolder }) => {
           navigation.navigate("InicioNotas", { folderId: data._id });
      }
 
+     const handleEditFolder = () => {
+          navigation.navigate("EditarCarpeta", { id: data._id, title: data.title });
+     }
+
      return (
           <View style={styles.item}>
                <Text style={styles.title}>{data.title}</Text>
@@ -30,7 +34,7 @@ const Folder = ({ data, deleteFolder }) => {
 
                <TouchableOpacity
                     style={styles.buttonEditar}
-               /* onPress={() => handleEditFolder} */
+                    onPress={handleEditFolder}
                >
                     <Text style={styles.textButton}>Editar título</Text>
                </TouchableOpacity>

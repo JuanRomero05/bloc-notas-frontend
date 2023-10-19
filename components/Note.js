@@ -5,8 +5,16 @@ import {
      TouchableOpacity,
      View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Note = ({ data, deleteNote }) => {
+
+     const navigation = useNavigation();
+
+     const handleEditNote = () => {
+          navigation.navigate("EditarNota", { folderId: data.folderId, id: data._id, title: data.title, content: data.content })
+     }
+
      return (
           <View style={styles.item}>
                <Text style={styles.title}>{data.title}</Text>
@@ -22,6 +30,7 @@ const Note = ({ data, deleteNote }) => {
                </TouchableOpacity>
                <TouchableOpacity
                     style={styles.buttonEditar}
+                    onPress={handleEditNote}
                >
                     <Text style={styles.textButton}>Editar</Text>
                </TouchableOpacity>
