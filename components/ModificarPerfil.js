@@ -1,8 +1,16 @@
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import { useRoute } from "@react-navigation/native";
 
-const ModificarPerfil = ({ navigation }) => {
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Config from "../Config";
+
+const ModificarPerfil = () => {
+
+     const api = Config.apiURL;
+
+     const navigation = useNavigation();
+
 
      const route = useRoute()
      const { usernameParam, passwordParam, firstNameParam, lastNameParam } = route.params
@@ -35,16 +43,16 @@ const ModificarPerfil = ({ navigation }) => {
           setShowTextInputPassword(!showTextInputPassword);
      }
 
-     const handleChangeTextUser = (name, value) => {
-          setUser({ ...user, [name]: value })
+     const handleChangeTextUser = (value) => {
+          setUser(value)
      }
 
-     const handleChangeTextName = (name, value) => {
-          setFirstName({ ...firstName, [name]: value })
+     const handleChangeTextName = (value) => {
+          setFirstName(value)
      }
 
-     const handleChangeTextLastName = (name, value) => {
-          setLastName({ ...lastName, [name]: value })
+     const handleChangeTextLastName = (value) => {
+          setLastName(value)
      }
 
      const handleChangeTextPassword = (name, value) => {
@@ -53,6 +61,7 @@ const ModificarPerfil = ({ navigation }) => {
 
      const saveUser = async () => {
           try {
+
                const token = await AsyncStorage.getItem('token');
 
                const sendBody = {
@@ -62,7 +71,7 @@ const ModificarPerfil = ({ navigation }) => {
                     "lastName": lastName
                }
 
-               const res = await fetch(api + `/user`, {
+               const res = await fetch(api + "/users", {
                     method: "PUT",
                     headers: {
                          "Content-Type": "application/json",
@@ -72,14 +81,13 @@ const ModificarPerfil = ({ navigation }) => {
                });
 
                const response = await res;
-
                const data = await response.json()
 
                if (response.status === 200) {
                     Alert.alert("Perfil modificado", "Se ha modificado el perfil correctamente")
-                    navigation.jumpTo('Perfil')
+                    navigation.navigate("Perfil");
                } else {
-                    Alert.alert(`${response.status}, ${data.msg}`)
+                    Alert.alert(`${response.status}`, `${data.msg}`)
                }
 
           } catch (error) {
@@ -104,12 +112,11 @@ const ModificarPerfil = ({ navigation }) => {
                                    style={styles.inputGroup}
                                    placeholder="Introduce el nuevo usuario"
                                    value={user}
-                                   onChangeText={(value) => handleChangeTextUser("user", value)}
+                                   onChangeText={(value) => handleChangeTextUser(value)}
                               />
 
                          )
                     }
-
                     <TouchableOpacity style={styles.buttons} onPress={handleButtonPressName}>
                          <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16 }}>Cambiar nombre</Text>
                     </TouchableOpacity>
@@ -119,7 +126,7 @@ const ModificarPerfil = ({ navigation }) => {
                                    style={styles.inputGroup}
                                    placeholder="Introduce el nuevo nombre"
                                    value={firstName}
-                                   onChangeText={(value) => handleChangeTextName("nombre", value)}
+                                   onChangeText={(value) => handleChangeTextName(value)}
                               />
                          )
                     }
@@ -133,7 +140,7 @@ const ModificarPerfil = ({ navigation }) => {
                                    style={styles.inputGroup}
                                    placeholder="Ingresa el nuevo apellido"
                                    value={lastName}
-                                   onChangeText={(value) => handleChangeTextLastName("lastName", value)}
+                                   onChangeText={(value) => handleChangeTextLastName(value)}
                               />
                          )
                     }

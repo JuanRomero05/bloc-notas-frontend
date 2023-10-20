@@ -52,12 +52,12 @@ const Folder = ({ data, deleteFolder }) => {
 
 const styles = StyleSheet.create({
      item: {
-          backgroundColor: "#f9f9f9",
+          backgroundColor: "#fff",
           padding: 20,
           marginVertical: 8,
           marginHorizontal: 16,
           borderRadius: 5,
-          borderColor: "#AAA",
+          borderColor: "#025099",
           borderWidth: 1,
           marginTop: 15,
      },

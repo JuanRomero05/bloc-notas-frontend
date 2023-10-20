@@ -13,10 +13,7 @@ const Perfil = () => {
      const navigation = useNavigation();
 
      const handleModifyProfile = async () => {
-          var i = 0
-          console.log(i++)
           try {
-               console.log(i++)
 
                const token = await AsyncStorage.getItem('token');
                const res = await fetch(api + "/users", {
@@ -27,20 +24,15 @@ const Perfil = () => {
                     },
                });
 
-               console.log(i++)
 
                const response = await res;
-               console.log(i++)
 
                const data = await response.json()
 
-               console.log(i++)
 
                if (response.status === 200) {
-                    console.log(i++)
 
                     const { username, password, firstName, lastName } = data
-                    console.log(i++)
 
                     const params = {
                          usernameParam: username,
@@ -48,7 +40,6 @@ const Perfil = () => {
                          firstNameParam: firstName,
                          lastNameParam: lastName
                     }
-                    console.log(i++)
 
                     navigation.navigate("ModificarPerfil", params);
                } else {

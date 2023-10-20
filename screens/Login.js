@@ -29,16 +29,12 @@ const Login = () => {
      }
 
      const handleLogin = async () => {
-          var i = 0;
-          console.log(i++);
           try {
-               console.log(i++);
 
                const body = {
                     "email": Login.email,
                     "password": Login.password
                }
-               console.log(i++);
 
                const res = await fetch(api + "/auth/login", {
                     method: "POST",
@@ -47,13 +43,10 @@ const Login = () => {
                     },
                     body: JSON.stringify(body)
                });
-               console.log(i++);
 
                const response = await res
-               console.log(i++);
 
                const data = await response.json()
-               console.log(i++);
 
                if (response.status === 200) {
                     await AsyncStorage.setItem('token', data.token);
