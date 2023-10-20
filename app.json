@@ -7,7 +7,7 @@
     "icon": "./assets/OIG.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash-notepad.png",
+      "image": "./assets/splashprueba.png",
       "resizeMode": "contain", 
       "backgroundColor": "#ffffff"
     },

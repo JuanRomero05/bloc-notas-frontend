@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
+import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -21,10 +21,23 @@ const Loading = () => {
      })
 
      return (
-          <View>
-               <Text>Loading</Text>
+          <View style={[styles.container, styles.horizontal]}>
+               <ActivityIndicator size="large" color="#025099" />
           </View>
      );
 };
+
+const styles = StyleSheet.create({
+     container: {
+          flex: 1,
+          justifyContent: 'center',
+     },
+     horizontal: {
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          padding: 10,
+     },
+});
+
 
 export default Loading;
