@@ -7,7 +7,6 @@ import {
      View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
 
 const Folder = ({ data, deleteFolder }) => {
 
@@ -25,8 +24,11 @@ const Folder = ({ data, deleteFolder }) => {
           <View style={styles.container}>
 
                <View style={styles.containFolder}>
+
                     <Text style={styles.title}>{data.title}</Text>
+
                     <View style={styles.item}>
+
                          <TouchableOpacity
                               style={styles.buttonNotas}
                               onPress={handleNotes}
@@ -68,14 +70,40 @@ const styles = StyleSheet.create({
           borderColor: "#025099",
           borderWidth: 1,
           marginTop: 15,
-
+     },
+     title: {
+          fontWeight: "bold",
+          fontSize: 20,
+          marginBottom: 10,
+          textAlign: "center"
      },
      item: {
           flexDirection: 'row',
           justifyContent: "space-between"
      },
-     textButtonEliminar: {
-          color: "red",
+     buttonNotas: {
+          marginTop: 15,
+          borderWidth: 1,
+          borderColor: "#025099",
+          width: 100,
+          borderRadius: 15,
+     },
+     textButtonNotas: {
+          color: "#025099",
+          fontWeight: "normal",
+          fontSize: 16,
+          padding: 5,
+          textAlign: "center"
+     },
+     buttonEditar: {
+          marginTop: 15,
+          borderWidth: 1,
+          borderColor: "gray",
+          width: 100,
+          borderRadius: 15,
+     },
+     textButtonEditar: {
+          color: "gray",
           fontWeight: "bold",
           fontSize: 16,
           padding: 5,
@@ -88,38 +116,11 @@ const styles = StyleSheet.create({
           width: 100,
           borderRadius: 15,
      },
-     textButtonEditar: {
-          color: "gray",
+     textButtonEliminar: {
+          color: "red",
           fontWeight: "bold",
           fontSize: 16,
           padding: 5,
-          textAlign: "center"
-     },
-     buttonEditar: {
-          marginTop: 15,
-          borderWidth: 1,
-          borderColor: "gray",
-          width: 100,
-          borderRadius: 15,
-     },
-     textButtonNotas: {
-          color: "#025099",
-          fontWeight: "normal",
-          fontSize: 16,
-          padding: 5,
-          textAlign: "center"
-     },
-     buttonNotas: {
-          marginTop: 15,
-          borderWidth: 1,
-          borderColor: "#025099",
-          width: 100,
-          borderRadius: 15,
-     },
-     title: {
-          fontWeight: "bold",
-          fontSize: 20,
-          marginBottom: 10,
           textAlign: "center"
      },
 });

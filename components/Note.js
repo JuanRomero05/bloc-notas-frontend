@@ -16,70 +16,101 @@ const Note = ({ data, deleteNote }) => {
      }
 
      return (
-          <View style={styles.item}>
-               <Text style={styles.title}>{data.title}</Text>
-               <View style={styles.description}>
-                    <Text style={styles.textDescription}>{data.content}</Text>
+          <View style={styles.container}>
+
+               <View style={styles.containNote}>
+
+                    <Text style={styles.title}>{data.title}</Text>
+
+                    <View style={styles.description}>
+                         <Text style={styles.textDescription}>{data.content}</Text>
+                    </View>
+
+                    <View style={styles.item}>
+                         <TouchableOpacity
+                              style={styles.buttonEditNote}
+                              onPress={handleEditNote}
+                         >
+                              <Text style={styles.textButtonEditNote}>Editar nota</Text>
+                         </TouchableOpacity>
+
+                         <TouchableOpacity
+                              style={styles.buttonDeleteNote}
+                              onPress={() => deleteNote(data._id)}
+                         >
+                              <Text style={styles.textButtonDeleteNote}>Eliminar</Text>
+                         </TouchableOpacity>
+
+                    </View>
+
                </View>
 
-               <TouchableOpacity
-                    style={styles.buttonEliminar}
-                    onPress={() => deleteNote(data._id)}
-               >
-                    <Text style={styles.textButton}>Eliminar</Text>
-               </TouchableOpacity>
-               <TouchableOpacity
-                    style={styles.buttonEditar}
-                    onPress={handleEditNote}
-               >
-                    <Text style={styles.textButton}>Editar</Text>
-               </TouchableOpacity>
           </View>
      );
 };
 
 const styles = StyleSheet.create({
-     item: {
-          backgroundColor: "#f9f9f9",
+     container: {
+          flex: 1,
+     },
+     containNote: {
+          backgroundColor: "#fff",
           padding: 20,
           marginVertical: 8,
           marginHorizontal: 16,
-          borderRadius: 5,
-          borderColor: "#AAA",
+          borderRadius: 15,
+          borderColor: "#025099",
           borderWidth: 1,
           marginTop: 15,
-     },
-     buttonEliminar: {
-          marginTop: 15,
-          backgroundColor: "red",
-          width: 100,
-          borderRadius: 5,
-     },
-     buttonEditar: {
-          marginTop: 15,
-          backgroundColor: "gray",
-          width: 100,
-          borderRadius: 5,
-     },
-     textButton: {
-          color: "#fff",
-          padding: 5,
-          textAlign: "center",
+
      },
      title: {
           fontWeight: "bold",
           fontSize: 20,
           marginBottom: 10,
-
+          textAlign: "center"
      },
      description: {
           borderWidth: 0.5,
-          borderRadius: 5,
+          borderRadius: 15,
+          borderColor: "#025099",
           backgroundColor: "#fff",
      },
      textDescription: {
           padding: 10,
-     }
+     },
+     item: {
+          flexDirection: 'row',
+          justifyContent: "space-between"
+     },
+     buttonEditNote: {
+          marginTop: 15,
+          borderWidth: 1,
+          borderColor: "#025099",
+          width: 100,
+          borderRadius: 15,
+     },
+     textButtonEditNote: {
+          color: "#025099",
+          fontWeight: "normal",
+          fontSize: 16,
+          padding: 5,
+          textAlign: "center"
+     },
+     buttonDeleteNote: {
+          marginTop: 15,
+          borderWidth: 1,
+          borderColor: "red",
+          width: 100,
+          borderRadius: 15,
+     },
+     textButtonDeleteNote: {
+          color: "red",
+          fontWeight: "bold",
+          fontSize: 16,
+          padding: 5,
+          textAlign: "center"
+     },
 });
 
 export default Note;
