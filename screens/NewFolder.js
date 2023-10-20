@@ -11,8 +11,6 @@ const NewFolder = ({ navigation }) => {
           title: "",
      });
 
-     //const navigation = useNavigation();
-
      const handleChangeText = (name, value) => {
           setNewFolder({ ...NewFolder, [name]: value })
      }
@@ -20,7 +18,6 @@ const NewFolder = ({ navigation }) => {
      const saveFolder = async () => {
           try {
                //Primer fetch para obtener el id del usuario, ya que es necesario al crear una carpeta
-               //const baseURL = "https://bloc-api-production.up.railway.app/users";
                const token = await AsyncStorage.getItem('token');
                const res = await fetch(api + "/users", {
                     method: "GET",
@@ -31,19 +28,13 @@ const NewFolder = ({ navigation }) => {
                });
                const response = await res;
                const data = await response.json()
-               var i = 0;
-               //console.log(i++);
-               //console.log("hasta aqui todo bien");
 
                if (response.status === 200) {
-                    //console.log(i++);
                     //Segundo fetch para crear la carpeta
-                    //const baseURL2 = "https://bloc-api-production.up.railway.app/folders";
                     const body = {
                          "title": NewFolder.title,
                          "userId": data._id
                     }
-                    //console.log(i++);
                     const res2 = await fetch(api + "/folders", {
                          method: "POST",
                          headers: {
@@ -53,12 +44,8 @@ const NewFolder = ({ navigation }) => {
                          body: JSON.stringify(body)
                     });
 
-                    //console.log(i++);
-
                     const response2 = await res2
                     if (response2.status === 201) {
-                         //console.log(i++);
-
                          setNewFolder({
                               title: "",
                          });

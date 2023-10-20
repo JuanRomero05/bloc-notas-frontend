@@ -3,13 +3,61 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Config from "../Config";
+
 
 const Perfil = () => {
 
+     const api = Config.apiURL;
+
      const navigation = useNavigation();
 
-     const handleModifyProfile = () => {
-          navigation.navigate("ModificarPerfil");
+     const handleModifyProfile = async () => {
+          var i = 0
+          console.log(i++)
+          try {
+               console.log(i++)
+
+               const token = await AsyncStorage.getItem('token');
+               const res = await fetch(api + "/users", {
+                    method: "GET",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+               });
+
+               console.log(i++)
+
+               const response = await res;
+               console.log(i++)
+
+               const data = await response.json()
+
+               console.log(i++)
+
+               if (response.status === 200) {
+                    console.log(i++)
+
+                    const { username, password, firstName, lastName } = data
+                    console.log(i++)
+
+                    const params = {
+                         usernameParam: username,
+                         passwordParam: password,
+                         firstNameParam: firstName,
+                         lastNameParam: lastName
+                    }
+                    console.log(i++)
+
+                    navigation.navigate("ModificarPerfil", params);
+               } else {
+                    Alert.alert("Error", data.msg)
+               }
+
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
      }
 
      const handleLogout = () => {

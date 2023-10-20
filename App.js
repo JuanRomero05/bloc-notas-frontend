@@ -31,7 +31,7 @@ export default function App() {
           name="Welcome"
           component={Welcome}
           options={{
-            title: "Bienvenido",
+            title: "Bienvenido a Jourpad",
             headerTitleAlign: "center",
             headerStyle: {
               backgroundColor: "#025099",

@@ -46,15 +46,6 @@ const Folder = ({ data, deleteFolder }) => {
                     <Text style={styles.textButton}>Ver notas</Text>
                </TouchableOpacity>
 
-               {/* <View>
-                    <TextInput
-                         value={newTitle}
-                         onChangeText={setNewTitle}
-                    />
-                    <TouchableOpacity onPress={handleEditFolder}>
-                         <Text>Edit Title</Text>
-                    </TouchableOpacity>
-               </View> */}
           </View>
      );
 };

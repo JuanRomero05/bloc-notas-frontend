@@ -1,18 +1,22 @@
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRoute } from "@react-navigation/native";
 
-const ModificarPerfil = () => {
+const ModificarPerfil = ({ navigation }) => {
+
+     const route = useRoute()
+     const { usernameParam, passwordParam, firstNameParam, lastNameParam } = route.params
 
      const [showTextInputUser, setShowTextInputUser] = useState(false);
      const [showTextInputName, setShowTextInputName] = useState(false);
      const [showTextInputLastName, setShowTextInputLastName] = useState(false);
      const [showTextInputPassword, setShowTextInputPassword] = useState(false);
-     const [user, setUser] = useState({ user: "" });
-     const [nombre, setNombre] = useState({ nombre: "" });
-     const [lastName, setLastName] = useState({ lastName: "" });
+     const [user, setUser] = useState(usernameParam);
+     const [firstName, setFirstName] = useState(firstNameParam);
+     const [lastName, setLastName] = useState(lastNameParam);
      const [password, setPassword] = useState({
-          newPassword: "",
-          repeatPassword: "",
+          newPassword: passwordParam,
+          repeatPassword: passwordParam,
      });
 
      const handleButtonPressUser = () => {
@@ -36,7 +40,7 @@ const ModificarPerfil = () => {
      }
 
      const handleChangeTextName = (name, value) => {
-          setNombre({ ...nombre, [name]: value })
+          setFirstName({ ...firstName, [name]: value })
      }
 
      const handleChangeTextLastName = (name, value) => {
@@ -47,11 +51,43 @@ const ModificarPerfil = () => {
           setPassword({ ...password, [name]: value })
      }
 
-     /* const Save = () => {
-          setUser({
-               user: "",
-          });
-     } */
+     const saveUser = async () => {
+          try {
+               const token = await AsyncStorage.getItem('token');
+
+               const sendBody = {
+                    "username": user,
+                    "password": password.newPassword,
+                    "firstName": firstName,
+                    "lastName": lastName
+               }
+
+               const res = await fetch(api + `/user`, {
+                    method: "PUT",
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(sendBody)
+               });
+
+               const response = await res;
+
+               const data = await response.json()
+
+               if (response.status === 200) {
+                    Alert.alert("Perfil modificado", "Se ha modificado el perfil correctamente")
+                    navigation.jumpTo('Perfil')
+               } else {
+                    Alert.alert(`${response.status}, ${data.msg}`)
+               }
+
+          } catch (error) {
+               Alert.alert("Error al realizar el fetch", error);
+          }
+     }
+
+
 
      return (
           <ScrollView style={styles.container}>
@@ -67,7 +103,7 @@ const ModificarPerfil = () => {
                               <TextInput
                                    style={styles.inputGroup}
                                    placeholder="Introduce el nuevo usuario"
-                                   value={user.user}
+                                   value={user}
                                    onChangeText={(value) => handleChangeTextUser("user", value)}
                               />
 
@@ -82,7 +118,7 @@ const ModificarPerfil = () => {
                               <TextInput
                                    style={styles.inputGroup}
                                    placeholder="Introduce el nuevo nombre"
-                                   value={nombre.nombre}
+                                   value={firstName}
                                    onChangeText={(value) => handleChangeTextName("nombre", value)}
                               />
                          )
@@ -96,7 +132,7 @@ const ModificarPerfil = () => {
                               <TextInput
                                    style={styles.inputGroup}
                                    placeholder="Ingresa el nuevo apellido"
-                                   value={lastName.lastName}
+                                   value={lastName}
                                    onChangeText={(value) => handleChangeTextLastName("lastName", value)}
                               />
                          )
@@ -124,7 +160,7 @@ const ModificarPerfil = () => {
                          )
                     }
 
-                    <TouchableOpacity style={styles.buttonSave} /* onPress={Save} */>
+                    <TouchableOpacity style={styles.buttonSave} onPress={saveUser} >
                          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
                     </TouchableOpacity>
 

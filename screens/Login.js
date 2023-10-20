@@ -29,12 +29,17 @@ const Login = () => {
      }
 
      const handleLogin = async () => {
+          var i = 0;
+          console.log(i++);
           try {
-               //let baseURL = "https://bloc-api-production.up.railway.app/auth/login";
+               console.log(i++);
+
                const body = {
                     "email": Login.email,
                     "password": Login.password
                }
+               console.log(i++);
+
                const res = await fetch(api + "/auth/login", {
                     method: "POST",
                     headers: {
@@ -42,8 +47,14 @@ const Login = () => {
                     },
                     body: JSON.stringify(body)
                });
+               console.log(i++);
+
                const response = await res
+               console.log(i++);
+
                const data = await response.json()
+               console.log(i++);
+
                if (response.status === 200) {
                     await AsyncStorage.setItem('token', data.token);
                     navigation.navigate("Menu");
