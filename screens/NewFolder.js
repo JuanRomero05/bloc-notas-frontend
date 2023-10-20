@@ -81,9 +81,6 @@ const NewFolder = ({ navigation }) => {
                          <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.buttonDesc}>
-                         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Descartar</Text>
-                    </TouchableOpacity>
                </View>
           </ScrollView>
      );

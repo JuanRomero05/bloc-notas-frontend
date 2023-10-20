@@ -6,11 +6,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Config from "../Config";
 
 
-const Perfil = () => {
+const Perfil = ({ navigation }) => {
 
      const api = Config.apiURL;
 
-     const navigation = useNavigation();
+     const redirect = useNavigation();
 
      const handleModifyProfile = async () => {
           try {
@@ -64,11 +64,9 @@ const Perfil = () => {
                          text: 'Confirmar',
                          onPress: async () => {
                               try {
-                                   var i = 0;
-                                   console.log(i++);
                                    await AsyncStorage.removeItem('token');
-                                   console.log(i++);
-                                   navigation.navigate("Welcome")
+                                   navigation.jumpTo("Inicio");
+                                   redirect.navigate("Welcome");
                               } catch (error) {
                                    Alert.alert("Error", "Ha ocurrido un error al intentar cerrar sesión");
                               }

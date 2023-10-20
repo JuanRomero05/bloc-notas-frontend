@@ -18,10 +18,10 @@ const Menu = () => {
      return (
 
           <Tab.Navigator
-               /* tabBarActivateBackgroundColor="#000" */
                activeColor="white"
                inactiveColor="#95a5a6"
                barStyle={styles.navigationBar}
+               initialRouteName="Inicio"
           >
                <Tab.Screen
                     name="Inicio"

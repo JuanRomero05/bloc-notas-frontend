@@ -18,8 +18,9 @@ const Stack = createNativeStackNavigator();
 //* 4. Al presionar una carpeta me debe abrir todas las notas que contiene, y si no tiene, dar la opcion para crear una.
 //* 5. Hacer validaciones de la contraseña y el correo con las expresiones regulares.
 //* 6. En el SignUp, validar lo de repetir contraseña y que estas coincidan.
-//TODO: Eliminar cuenta y botones de descartar. Validar email y password en Login.
+//* Eliminar cuenta y botones de descartar.
 //TODO: APLICAR SPINNER DE LOADING
+//TODO: MARDITO BOTON DE MIERDA QUE NO SE PONE ABAJO.
 //TODO: Cambiar background en el TabNavigator del Menu
 
 export default function App() {
