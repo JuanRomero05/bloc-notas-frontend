@@ -49,7 +49,7 @@ const NewNote = () => {
                     navigation.navigate("InicioNotas", { folderId: folderId });
                } else {
                     const data = await response.json()
-                    Alert.alert(`${response.status}, ${data.msg}`)
+                    Alert.alert(`${response.status}`, `${data.msg}`)
                }
           } catch (error) {
                Alert.alert("Error al realizar el fetch", error);

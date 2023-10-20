@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
      },
      textButtonEditNote: {
           color: "#025099",
-          fontWeight: "normal",
+          fontWeight: "bold",
           fontSize: 16,
           padding: 5,
           textAlign: "center"

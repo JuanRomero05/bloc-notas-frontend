@@ -40,7 +40,7 @@ const Folder = ({ data, deleteFolder }) => {
                               style={styles.buttonEditar}
                               onPress={handleEditFolder}
                          >
-                              <Text style={styles.textButtonEditar}>Editar título</Text>
+                              <Text style={styles.textButtonEditar}>Editar</Text>
                          </TouchableOpacity>
 
                          <TouchableOpacity
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
      },
      textButtonEditar: {
           color: "gray",
-          fontWeight: "bold",
+          fontWeight: "normal",
           fontSize: 16,
           padding: 5,
           textAlign: "center"

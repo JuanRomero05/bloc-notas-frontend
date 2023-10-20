@@ -69,7 +69,7 @@ const Signup = () => {
                     navigation.navigate("Welcome");
                } else {
                     const data = await response.json()
-                    Alert.alert(`${response.status}, ${data.msg}`)
+                    Alert.alert(`${response.status}`, `${data.msg}`)
                }
           } catch (error) {
                Alert.alert("Error al realizar el fetch", error);
@@ -90,6 +90,10 @@ const Signup = () => {
                          />
                     </View>
 
+                    {Signup.user === "" && (
+                         <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
+                    )}
+
                     <View style={styles.inputGroup}>
                          <MaterialCommunityIcons name="card-account-details-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
@@ -99,6 +103,10 @@ const Signup = () => {
                          />
                     </View>
 
+                    {Signup.name === "" && (
+                         <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
+                    )}
+
                     <View style={styles.inputGroup}>
                          <MaterialCommunityIcons name="card-account-details-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
@@ -107,6 +115,10 @@ const Signup = () => {
                               onChangeText={(value) => handleChangeText("lastName", value)}
                          />
                     </View>
+
+                    {Signup.lastName === "" && (
+                         <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
+                    )}
 
                     <View style={styles.inputGroup}>
                          <MaterialCommunityIcons name="email-outline" size={24} color="black" style={{ marginEnd: 5 }} />

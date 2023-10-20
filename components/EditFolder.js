@@ -47,7 +47,7 @@ const EditFolder = () => {
                     Alert.alert("Titulo modificado", "Se ha modificado el título de la carpeta correctamente")
                     navigation.navigate("Menu")
                } else {
-                    Alert.alert(`${response.status}, ${data.msg}`)
+                    Alert.alert(`${response.status}`, `${data.msg}`)
                }
 
           } catch (error) {

@@ -55,7 +55,7 @@ const NewFolder = ({ navigation }) => {
                          Alert.alert(`${response2.status}, ${data2.msg}`)
                     }
                } else {
-                    Alert.alert(`${response.status}, ${data.msg}`)
+                    Alert.alert(`${response.status}`, `${data.msg}`)
                }
 
           } catch (error) {

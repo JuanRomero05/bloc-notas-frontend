@@ -50,7 +50,7 @@ const EditNote = () => {
                     Alert.alert("Titulo modificado", "Se ha modificado el título de la carpeta correctamente")
                     navigation.navigate("InicioNotas", { folderId })
                } else {
-                    Alert.alert(`${response.status}, ${data.msg}`)
+                    Alert.alert(`${response.status}`, `${data.msg}`)
                }
 
           } catch (error) {
