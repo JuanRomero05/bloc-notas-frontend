@@ -50,6 +50,10 @@ const Login = () => {
 
                if (response.status === 200) {
                     await AsyncStorage.setItem('token', data.token);
+                    setLogin({
+                         "email": "",
+                         "password": ""
+                    })
                     navigation.navigate("Menu");
                } else {
                     Alert.alert(`${response.status}, ${data.msg}`)

@@ -22,82 +22,106 @@ const Folder = ({ data, deleteFolder }) => {
      }
 
      return (
-          <View style={styles.item}>
-               <Text style={styles.title}>{data.title}</Text>
+          <View style={styles.container}>
 
-               <TouchableOpacity
-                    style={styles.buttonEliminar}
-                    onPress={() => deleteFolder(data._id)}
-               >
-                    <Text style={styles.textButton}>Eliminar</Text>
-               </TouchableOpacity>
+               <View style={styles.containFolder}>
+                    <Text style={styles.title}>{data.title}</Text>
+                    <View style={styles.item}>
+                         <TouchableOpacity
+                              style={styles.buttonNotas}
+                              onPress={handleNotes}
+                         >
+                              <Text style={styles.textButtonNotas}>Ver notas</Text>
+                         </TouchableOpacity>
 
-               <TouchableOpacity
-                    style={styles.buttonEditar}
-                    onPress={handleEditFolder}
-               >
-                    <Text style={styles.textButton}>Editar título</Text>
-               </TouchableOpacity>
+                         <TouchableOpacity
+                              style={styles.buttonEditar}
+                              onPress={handleEditFolder}
+                         >
+                              <Text style={styles.textButtonEditar}>Editar título</Text>
+                         </TouchableOpacity>
 
-               <TouchableOpacity
-                    style={styles.buttonNotas}
-                    onPress={handleNotes}
-               >
-                    <Text style={styles.textButton}>Ver notas</Text>
-               </TouchableOpacity>
+                         <TouchableOpacity
+                              style={styles.buttonEliminar}
+                              onPress={() => deleteFolder(data._id)}
+                         >
+                              <Text style={styles.textButtonEliminar}>Eliminar</Text>
+                         </TouchableOpacity>
+
+                    </View>
+               </View>
 
           </View>
      );
 };
 
 const styles = StyleSheet.create({
-     item: {
+     container: {
+          flex: 1,
+     },
+     containFolder: {
           backgroundColor: "#fff",
           padding: 20,
           marginVertical: 8,
           marginHorizontal: 16,
-          borderRadius: 5,
+          borderRadius: 15,
           borderColor: "#025099",
           borderWidth: 1,
           marginTop: 15,
+
+     },
+     item: {
+          flexDirection: 'row',
+          justifyContent: "space-between"
+     },
+     textButtonEliminar: {
+          color: "red",
+          fontWeight: "bold",
+          fontSize: 16,
+          padding: 5,
+          textAlign: "center"
      },
      buttonEliminar: {
           marginTop: 15,
-          backgroundColor: "red",
+          borderWidth: 1,
+          borderColor: "red",
           width: 100,
-          borderRadius: 5,
+          borderRadius: 15,
+     },
+     textButtonEditar: {
+          color: "gray",
+          fontWeight: "bold",
+          fontSize: 16,
+          padding: 5,
+          textAlign: "center"
      },
      buttonEditar: {
           marginTop: 15,
-          backgroundColor: "gray",
+          borderWidth: 1,
+          borderColor: "gray",
           width: 100,
-          borderRadius: 5,
+          borderRadius: 15,
+     },
+     textButtonNotas: {
+          color: "#025099",
+          fontWeight: "normal",
+          fontSize: 16,
+          padding: 5,
+          textAlign: "center"
      },
      buttonNotas: {
           marginTop: 15,
-          backgroundColor: "#025099",
+          borderWidth: 1,
+          borderColor: "#025099",
           width: 100,
-          borderRadius: 5,
-     },
-     textButton: {
-          color: "#fff",
-          padding: 5,
-          textAlign: "center",
+          borderRadius: 15,
      },
      title: {
           fontWeight: "bold",
           fontSize: 20,
           marginBottom: 10,
-
+          textAlign: "center"
      },
-     description: {
-          borderWidth: 0.5,
-          borderRadius: 5,
-          backgroundColor: "#fff",
-     },
-     textDescription: {
-          padding: 10,
-     }
 });
 
 export default Folder;

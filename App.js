@@ -8,6 +8,7 @@ import Notes from "./screens/Notes";
 import NewNote from "./screens/NewNote";
 import EditFolder from "./components/EditFolder";
 import EditNote from "./components/EditNote";
+import Loading from "./components/Loading";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,14 @@ export default function App() {
       /* screenOptions={{ headerBackVisible: false }} */
       >
         <Stack.Screen
+          name="Loading"
+          component={Loading}
+          options={{
+            title: "",
+          }}
+        />
+
+        <Stack.Screen
           name="Welcome"
           component={Welcome}
           options={{
@@ -40,6 +49,7 @@ export default function App() {
             headerTitleStyle: {
               fontWeight: "bold",
             },
+            headerBackVisible: false,
           }}
         />
 
