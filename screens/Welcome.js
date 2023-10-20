@@ -1,5 +1,5 @@
 /* Es la primera screen que se muestra al entrar en la aplicación, en ella se muestra el Login */
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from "react-native";
 import React from "react";
 import Login from "./Login";
 import { useNavigation } from "@react-navigation/native";
@@ -12,18 +12,21 @@ const Welcome = () => {
      }
 
      return (
-          <View style={styles.container}>
-               <Image
-                    source={require("../assets/OIG.png")}
-                    style={styles.img}
-               />
-               <View>
-                    <Login />
+          <ScrollView>
+               <View style={styles.container}>
+                    <Image
+                         source={require("../assets/OIG.png")}
+                         style={styles.img}
+                    />
+                    <View>
+                         <Login />
+                    </View>
+                    <TouchableOpacity style={styles.buttonRegister} onPress={handleSignup}>
+                         <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Registrarse</Text>
+                    </TouchableOpacity>
                </View>
-               <TouchableOpacity style={styles.buttonRegister} onPress={handleSignup}>
-                    <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Registrarse</Text>
-               </TouchableOpacity>
-          </View>
+
+          </ScrollView>
      )
 };
 

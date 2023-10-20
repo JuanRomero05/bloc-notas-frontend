@@ -90,8 +90,28 @@ const Perfil = () => {
                     },
                     {
                          text: 'Confirmar',
-                         onPress: () => {
-                              // Lógica para eliminar la cuenta
+                         onPress: async () => {
+                              try {
+                                   const token = await AsyncStorage.getItem('token');
+                                   const res = await fetch(api + "/users", {
+                                        method: "DELETE",
+                                        headers: {
+                                             "Content-Type": "application/json",
+                                             "Authorization": `Bearer ${token}`
+                                        },
+                                   })
+                                   const response = await res
+                                   if (response.status === 200) {
+                                        Alert.alert("Cuenta Eliminada", "Se ha eliminado la cuenta correctamente.");
+                                        await AsyncStorage.removeItem('token');
+                                        navigation.navigate("Welcome")
+                                   } else {
+                                        const data = await response.json()
+                                        Alert.alert(`${response.status}, ${data.msg}`)
+                                   }
+                              } catch (error) {
+                                   Alert.alert("Error al realizar el fetch", error);
+                              }
                          },
                     },
                ],
