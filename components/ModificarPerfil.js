@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Config from "../Config";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 
 const ModificarPerfil = () => {
 
@@ -31,9 +33,16 @@ const ModificarPerfil = () => {
           newPassword: "",
           repeatPassword: "",
      });
-     const [userEmpty, setUserEmpty] = useState(false) 
+     const [showPassword, setShowPassword] = useState(false);
+     const [confirmPassword, setConfirmPassword] = useState("");
+
+     const [userEmpty, setUserEmpty] = useState(false)
      const [firstNameEmpty, setFirstNameEmpty] = useState(false)
      const [lastNameEmpty, setLastNameEmpty] = useState(false)
+
+     const toggleShowPassword = () => {
+          setShowPassword(!showPassword);
+     };
 
      const handleButtonPressUser = () => {
           setShowTextInputUser(!showTextInputUser);
@@ -82,6 +91,11 @@ const ModificarPerfil = () => {
           setPassword({ ...password, [name]: value })
      }
 
+     const validatePassword = (password) => {
+          const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/;
+          return passwordRegex.test(password);
+     }
+
      const saveUser = async () => {
           try {
                setButtonDisabled(true)
@@ -112,7 +126,7 @@ const ModificarPerfil = () => {
 
                     const response = await res;
                     const data = await response.json()
-     
+
                     if (response.status === 200) {
                          Alert.alert("Perfil modificado", "Se ha modificado el perfil correctamente")
                          navigation.navigate("Perfil");
@@ -194,28 +208,60 @@ const ModificarPerfil = () => {
                               <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                          )
                     }
-                    
+
                     <TouchableOpacity style={styles.buttons} onPress={handleButtonPressPassword}>
                          <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16 }}>Cambiar contraseña</Text>
                     </TouchableOpacity>
                     {
                          showTextInputPassword && (
-                              <View>
-                                   <TextInput
-                                        style={styles.inputGroup}
-                                        placeholder="Ingresa la nueva contraseña"
-                                        value={password.newPassword}
-                                        onChangeText={(value) => handleChangeTextPassword("newPassword", value)}
-                                   />
-                                   <TextInput
-                                        style={styles.inputGroup}
-                                        placeholder="Repite la contraseña"
-                                        value={password.repeatPassword}
-                                        onChangeText={(value) => handleChangeTextPassword("repeatPassword", value)}
-                                   />
-                              </View>
+                              <>
+                                   <View style={styles.inputGroup}>
+                                        <MaterialCommunityIcons name="lock-outline" size={24} color="black" style={{ marginEnd: 5 }} />
+                                        <TextInput
+                                             placeholder="Ingresa la nueva contraseña"
+                                             value={password.newPassword}
+                                             onChangeText={(value) => handleChangeTextPassword("newPassword", value)}
+                                             secureTextEntry={!showPassword}
+                                             style={{ flex: 1 }}
+                                        />
+                                        <TouchableOpacity onPress={toggleShowPassword}>
+                                             <Ionicons
+                                                  name={showPassword ? "eye-off" : "eye"}
+                                                  size={24}
+                                                  color="black"
+                                             />
+                                        </TouchableOpacity>
+                                   </View>
+
+                                   {password.newPassword && !validatePassword(password.newPassword) && (
+                                        <Text style={styles.errorText}>La contraseña debe tener una longitud de almenos 8 caracteres, almenos un caracter numérico y letras mayúsculas o minúsculas</Text>
+                                   )}
+
+                                   <View style={styles.inputGroup}>
+                                        <MaterialCommunityIcons name="lock-outline" size={24} color="black" style={{ marginEnd: 5 }} />
+                                        <TextInput
+                                             placeholder="Repetir contraseña"
+                                             value={password.repeatPassword}
+                                             onChangeText={(value) => handleChangeTextPassword("repeatPassword", value)}
+                                             secureTextEntry={!showPassword}
+                                             style={{ flex: 1 }}
+                                        />
+                                        <TouchableOpacity onPress={toggleShowPassword}>
+                                             <Ionicons
+                                                  name={showPassword ? "eye-off" : "eye"}
+                                                  size={24}
+                                                  color="black"
+                                             />
+                                        </TouchableOpacity>
+                                   </View>
+
+                              </>
                          )
                     }
+
+                    {password.newPassword && password.repeatPassword && password.newPassword !== password.repeatPassword && (
+                         <Text style={styles.errorText}>Las contraseñas no coinciden</Text>
+                    )}
 
                     <TouchableOpacity style={styles.buttonSave} onPress={saveUser} disabled={buttonDisabled}>
                          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
@@ -252,6 +298,7 @@ const styles = StyleSheet.create({
           marginBottom: 15,
      },
      inputGroup: {
+          flexDirection: 'row',
           padding: 10,
           marginBottom: 20,
           borderWidth: 1,
@@ -267,5 +314,9 @@ const styles = StyleSheet.create({
           width: "100%",
           marginTop: 30,
           marginBottom: 50
-     }
+     },
+     errorText: {
+          color: "red",
+          marginBottom: 20,
+     },
 });
