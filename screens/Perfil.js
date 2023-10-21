@@ -32,11 +32,10 @@ const Perfil = ({ navigation }) => {
 
                if (response.status === 200) {
 
-                    const { username, password, firstName, lastName } = data
+                    const { username, firstName, lastName } = data
 
                     const params = {
                          usernameParam: username,
-                         passwordParam: password,
                          firstNameParam: firstName,
                          lastNameParam: lastName
                     }
