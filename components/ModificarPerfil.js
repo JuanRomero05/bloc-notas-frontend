@@ -13,7 +13,7 @@ const ModificarPerfil = () => {
 
 
      const route = useRoute()
-     const { usernameParam, passwordParam, firstNameParam, lastNameParam } = route.params
+     const { usernameParam, firstNameParam, lastNameParam } = route.params
 
      const [showTextInputUser, setShowTextInputUser] = useState(false);
      const [showTextInputName, setShowTextInputName] = useState(false);
@@ -23,8 +23,8 @@ const ModificarPerfil = () => {
      const [firstName, setFirstName] = useState(firstNameParam);
      const [lastName, setLastName] = useState(lastNameParam);
      const [password, setPassword] = useState({
-          newPassword: passwordParam,
-          repeatPassword: passwordParam,
+          newPassword: "",
+          repeatPassword: "",
      });
 
      const handleButtonPressUser = () => {
@@ -61,35 +61,43 @@ const ModificarPerfil = () => {
 
      const saveUser = async () => {
           try {
-
                const token = await AsyncStorage.getItem('token');
 
                const sendBody = {
                     "username": user,
-                    "password": password.newPassword,
                     "firstName": firstName,
                     "lastName": lastName
                }
 
-               const res = await fetch(api + "/users", {
-                    method: "PUT",
-                    headers: {
-                         "Content-Type": "application/json",
-                         "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify(sendBody)
-               });
+               const { newPassword, repeatPassword } = password
 
-               const response = await res;
-               const data = await response.json()
+               if (newPassword === repeatPassword) {
+                    // modificar la clave es opcional, si se ha agregado, se añade al body del request
+                    if (newPassword !== "") {
+                         sendBody.password = newPassword
+                    }
 
-               if (response.status === 200) {
-                    Alert.alert("Perfil modificado", "Se ha modificado el perfil correctamente")
-                    navigation.navigate("Perfil");
+                    const res = await fetch(api + "/users", {
+                         method: "PUT",
+                         headers: {
+                              "Content-Type": "application/json",
+                              "Authorization": `Bearer ${token}`
+                         },
+                         body: JSON.stringify(sendBody)
+                    });
+
+                    const response = await res;
+                    const data = await response.json()
+     
+                    if (response.status === 200) {
+                         Alert.alert("Perfil modificado", "Se ha modificado el perfil correctamente")
+                         navigation.navigate("Perfil");
+                    } else {
+                         Alert.alert(`${response.status}`, `${data.msg}`)
+                    }
                } else {
-                    Alert.alert(`${response.status}`, `${data.msg}`)
+                    Alert.alert("Error al modificar usuario", "Las claves no coinciden.")
                }
-
           } catch (error) {
                Alert.alert("Error al realizar el fetch", error);
           }

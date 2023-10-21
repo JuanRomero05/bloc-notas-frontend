@@ -13,7 +13,7 @@ const Signup = () => {
      const [showPassword, setShowPassword] = useState(false);
      const [confirmPassword, setConfirmPassword] = useState("");
 
-     const [Signup, setSignup] = useState({
+     const [signup, setSignup] = useState({
           user: "",
           name: "",
           lastName: "",
@@ -28,7 +28,7 @@ const Signup = () => {
      };
 
      const handleChangeText = (name, value) => {
-          setSignup({ ...Signup, [name]: value })
+          setSignup({ ...signup, [name]: value })
      }
 
      const validateEmail = (email) => {
@@ -43,18 +43,23 @@ const Signup = () => {
 
      const handleWelcome = async () => {
 
-          if (Signup.password !== confirmPassword) {
+          if (signup.password !== confirmPassword) {
                Alert.alert("Las contraseñas no coinciden");
                return;
           }
 
           try {
                //let baseURL = "https://bloc-api-production.up.railway.app/auth/signup";
+               const { user, email, password, name, lastName } = signup
+
                const body = {
-                    "username": Signup.user,
-                    "email": Signup.email,
-                    "password": Signup.password
+                    "username": user,
+                    "email": email,
+                    "password": password,
+                    "firstName": name,
+                    "lastName": lastName
                }
+               
                const res = await fetch(api + "/auth/signup", {
                     method: "POST",
                     headers: {
@@ -85,12 +90,12 @@ const Signup = () => {
                          <MaterialCommunityIcons name="account-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Nombre de usuario"
-                              value={Signup.user}
+                              value={signup.user}
                               onChangeText={(value) => handleChangeText("user", value)}
                          />
                     </View>
 
-                    {Signup.user === "" && (
+                    {signup.user === "" && (
                          <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                     )}
 
@@ -98,12 +103,12 @@ const Signup = () => {
                          <MaterialCommunityIcons name="card-account-details-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Nombre"
-                              value={Signup.name}
+                              value={signup.name}
                               onChangeText={(value) => handleChangeText("name", value)}
                          />
                     </View>
 
-                    {Signup.name === "" && (
+                    {signup.name === "" && (
                          <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                     )}
 
@@ -111,12 +116,12 @@ const Signup = () => {
                          <MaterialCommunityIcons name="card-account-details-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Apellido"
-                              value={Signup.lastName}
+                              value={signup.lastName}
                               onChangeText={(value) => handleChangeText("lastName", value)}
                          />
                     </View>
 
-                    {Signup.lastName === "" && (
+                    {signup.lastName === "" && (
                          <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                     )}
 
@@ -124,12 +129,12 @@ const Signup = () => {
                          <MaterialCommunityIcons name="email-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Correo"
-                              value={Signup.email}
+                              value={signup.email}
                               onChangeText={(value) => handleChangeText("email", value)}
                          />
                     </View>
 
-                    {Signup.email && !validateEmail(Signup.email) && (
+                    {signup.email && !validateEmail(signup.email) && (
                          <Text style={styles.errorText}>Dirección de email inválida.</Text>
                     )}
 
@@ -137,7 +142,7 @@ const Signup = () => {
                          <MaterialCommunityIcons name="lock-outline" size={24} color="black" style={{ marginEnd: 5 }} />
                          <TextInput
                               placeholder="Contraseña"
-                              value={Signup.password}
+                              value={signup.password}
                               onChangeText={(value) => handleChangeText("password", value)}
                               secureTextEntry={!showPassword}
                               style={{ flex: 1 }}
@@ -151,7 +156,7 @@ const Signup = () => {
                          </TouchableOpacity>
                     </View>
 
-                    {Signup.password && !validatePassword(Signup.password) && (
+                    {signup.password && !validatePassword(signup.password) && (
                          <Text style={styles.errorText}>La contraseña debe tener una longitud de almenos 8 caracteres, almenos un caracter numérico y letras mayúsculas o minúsculas</Text>
                     )}
 
@@ -173,7 +178,7 @@ const Signup = () => {
                          </TouchableOpacity>
                     </View>
 
-                    {Signup.password && confirmPassword && Signup.password !== confirmPassword && (
+                    {signup.password && confirmPassword && signup.password !== confirmPassword && (
                          <Text style={styles.errorText}>Las contraseñas no coinciden</Text>
                     )}
 
