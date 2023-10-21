@@ -19,11 +19,11 @@ const Stack = createNativeStackNavigator();
 //* 5. Hacer validaciones de la contraseña y el correo con las expresiones regulares.
 //* 6. En el SignUp, validar lo de repetir contraseña y que estas coincidan.
 //* Eliminar cuenta y botones de descartar.
-//TODO: APLICAR SPINNER DE LOADING
-//TODO: Validaciones de los campos vacios en SignUp y Login.
+//* APLICAR SPINNER DE LOADING
+//* Validaciones de los campos vacios en SignUp y Login.
+//* Acomodar splash
 //TODO: Ajustes en Modificar usuario: Inicializar contraseña en blanco, Validar contraseña y contraseña repetida.
 //TODO: MARDITO BOTON DE MIERDA QUE NO SE PONE ABAJO.
-//TODO: Acomodar splash
 //TODO?: Cambiar background en el TabNavigator del Menu
 
 export default function App() {
