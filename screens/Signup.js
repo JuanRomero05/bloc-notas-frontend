@@ -97,7 +97,6 @@ const Signup = () => {
           } catch (error) {
                Alert.alert("Error de conexion", error);
           }
-
      }
 
      return (

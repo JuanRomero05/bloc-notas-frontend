@@ -61,14 +61,17 @@ const NewFolder = ({ navigation }) => {
                          });
                          navigation.jumpTo("Inicio");
                     } else {
+                         setButtonDisabled(false)
                          const data2 = await response2.json()
                          Alert.alert(`${response2.status}, ${data2.msg}`)
                     }
                } else {
+                    setButtonDisabled(false)
                     Alert.alert(`Error ${response.status}`, `${data.msg}`)
                }
 
           } catch (error) {
+               setButtonDisabled(false)
                Alert.alert("Error de conexion", error);
           }
 

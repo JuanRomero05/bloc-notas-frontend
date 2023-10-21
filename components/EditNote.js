@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Config from "../Config";
@@ -17,6 +17,12 @@ const EditNote = () => {
           content: content
      });
 
+     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+     useEffect(() => {
+          setButtonDisabled(false)
+     }, []);
+
      const navigation = useNavigation();
 
      const handleChangeText = (name, value) => {
@@ -25,6 +31,7 @@ const EditNote = () => {
 
      const saveEditNote = async () => {
           try {
+               setButtonDisabled(true)
 
                const token = await AsyncStorage.getItem('token');
 
@@ -47,14 +54,16 @@ const EditNote = () => {
                const data = await response.json()
 
                if (response.status === 200) {
-                    Alert.alert("Titulo modificado", "Se ha modificado el título de la carpeta correctamente")
+                    Alert.alert("Nota modificada", "Se ha modificado la nota correctamente")
                     navigation.navigate("InicioNotas", { folderId })
                } else {
                     Alert.alert(`Error ${response.status}`, `${data.msg}`)
+                    setButtonDisabled(false)
                }
 
           } catch (error) {
                Alert.alert("Error de conexion", error);
+               setButtonDisabled(false)
           }
 
      }
@@ -83,8 +92,8 @@ const EditNote = () => {
                          />
                     </View>
 
-                    <TouchableOpacity style={styles.buttonSave} onPress={saveEditNote}>
-                         <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
+                    <TouchableOpacity style={styles.buttonSave} onPress={saveEditNote} disabled={buttonDisabled}>
+                         <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }} >Guardar</Text>
                     </TouchableOpacity>
 
                </View>

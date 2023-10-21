@@ -11,6 +11,11 @@ const ModificarPerfil = () => {
 
      const navigation = useNavigation();
 
+     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+     useEffect(() => {
+          setButtonDisabled(false)
+     }, []);
 
      const route = useRoute()
      const { usernameParam, firstNameParam, lastNameParam } = route.params
@@ -79,6 +84,7 @@ const ModificarPerfil = () => {
 
      const saveUser = async () => {
           try {
+               setButtonDisabled(true)
                const token = await AsyncStorage.getItem('token');
 
                const sendBody = {
@@ -111,12 +117,15 @@ const ModificarPerfil = () => {
                          Alert.alert("Perfil modificado", "Se ha modificado el perfil correctamente")
                          navigation.navigate("Perfil");
                     } else {
+                         setButtonDisabled(false)
                          Alert.alert(`Error ${response.status}`, `${data.msg}`)
                     }
                } else {
+                    setButtonDisabled(false)
                     Alert.alert("Error", "Las claves no coinciden.")
                }
           } catch (error) {
+               setButtonDisabled(false)
                Alert.alert("Error de conexion", error);
           }
      }
@@ -208,7 +217,7 @@ const ModificarPerfil = () => {
                          )
                     }
 
-                    <TouchableOpacity style={styles.buttonSave} onPress={saveUser} >
+                    <TouchableOpacity style={styles.buttonSave} onPress={saveUser} disabled={buttonDisabled}>
                          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
                     </TouchableOpacity>
 

@@ -58,10 +58,12 @@ const NewNote = () => {
                     });
                     navigation.navigate("InicioNotas", { folderId: folderId });
                } else {
+                    setButtonDisabled(false)
                     const data = await response.json()
                     Alert.alert(`Error ${response.status}`, `${data.msg}`)
                }
           } catch (error) {
+               setButtonDisabled(false)
                Alert.alert("Error de conexion", error);
           }
 

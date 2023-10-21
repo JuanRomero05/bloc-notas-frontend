@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Config from "../Config";
@@ -17,12 +17,19 @@ const EditFolder = () => {
 
      const navigation = useNavigation();
 
+     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+     useEffect(() => {
+          setButtonDisabled(false)
+     }, []);
+
      const handleChangeText = (name, value) => {
           setEditTitle({ ...editTitle, [name]: value })
      }
 
      const saveEditFolder = async () => {
           try {
+               setButtonDisabled(true)
 
                const token = await AsyncStorage.getItem('token');
 
@@ -47,10 +54,12 @@ const EditFolder = () => {
                     Alert.alert("Titulo modificado", "Se ha modificado el título de la carpeta correctamente")
                     navigation.navigate("Menu")
                } else {
+                    setButtonDisabled(false)
                     Alert.alert(`Error ${response.status}`, `${data.msg}`)
                }
 
           } catch (error) {
+               setButtonDisabled(false)
                Alert.alert("Error de conexion", error);
           }
 
@@ -69,7 +78,7 @@ const EditFolder = () => {
                          />
                     </View>
 
-                    <TouchableOpacity style={styles.buttonSave} onPress={saveEditFolder}>
+                    <TouchableOpacity style={styles.buttonSave} onPress={saveEditFolder} disabled={buttonDisabled}>
                          <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
                     </TouchableOpacity>
 
