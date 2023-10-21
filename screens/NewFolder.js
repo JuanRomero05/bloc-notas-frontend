@@ -46,6 +46,8 @@ const NewFolder = ({ navigation }) => {
 
                     const response2 = await res2
                     if (response2.status === 201) {
+                         Alert.alert("Carpeta creada", "Se ha creado la carpeta exitosamente.");
+
                          setNewFolder({
                               title: "",
                          });

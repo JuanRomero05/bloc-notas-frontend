@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Config from "../Config";
@@ -19,6 +19,13 @@ const NewNote = () => {
           content: ""
      });
 
+     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+     useEffect(() => {
+          setButtonDisabled(false)
+     }, []);
+
+
      const handleChangeText = (name, value) => {
           setNewNote({ ...NewNote, [name]: value })
      }
@@ -26,6 +33,7 @@ const NewNote = () => {
      const saveNote = async () => {
 
           try {
+               setButtonDisabled(true);
                const token = await AsyncStorage.getItem('token');
                const body = {
                     "title": NewNote.title,
@@ -42,6 +50,7 @@ const NewNote = () => {
                });
                const response = await res
                if (response.status === 201) {
+                    Alert.alert("Nota creada", "Se ha creado la nota exitosamente.");
                     setNewNote({
                          title: "",
                          content: "",
@@ -81,7 +90,7 @@ const NewNote = () => {
                          />
                     </View>
 
-                    <TouchableOpacity style={styles.buttonSave} onPress={saveNote}>
+                    <TouchableOpacity style={styles.buttonSave} onPress={saveNote} disabled={buttonDisabled}>
                          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
                     </TouchableOpacity>
 
