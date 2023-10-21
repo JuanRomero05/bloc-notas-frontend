@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import Config from "../Config";
@@ -11,12 +11,19 @@ const NewFolder = ({ navigation }) => {
           title: "",
      });
 
+     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+     useEffect(() => {
+          setButtonDisabled(false)
+     }, []);
+
      const handleChangeText = (name, value) => {
           setNewFolder({ ...NewFolder, [name]: value })
      }
 
      const saveFolder = async () => {
           try {
+               setButtonDisabled(true);
                //Primer fetch para obtener el id del usuario, ya que es necesario al crear una carpeta
                const token = await AsyncStorage.getItem('token');
                const res = await fetch(api + "/users", {
@@ -79,7 +86,7 @@ const NewFolder = ({ navigation }) => {
                          />
                     </View>
 
-                    <TouchableOpacity style={styles.buttonSave} onPress={saveFolder}>
+                    <TouchableOpacity style={styles.buttonSave} onPress={saveFolder} disabled={buttonDisabled}>
                          <Text style={{ color: "#025099", fontSize: 16, fontWeight: "bold" }}>Guardar</Text>
                     </TouchableOpacity>
 

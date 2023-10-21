@@ -7,10 +7,17 @@ import {
      View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 const Folder = ({ data, deleteFolder }) => {
 
      const navigation = useNavigation();
+
+     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+     useEffect(() => {
+          setButtonDisabled(false)
+     }, []);
 
      const handleNotes = () => {
           navigation.navigate("InicioNotas", { folderId: data._id });
@@ -18,6 +25,11 @@ const Folder = ({ data, deleteFolder }) => {
 
      const handleEditFolder = () => {
           navigation.navigate("EditarCarpeta", { id: data._id, title: data.title });
+     }
+
+     const handleDeleteFolder = (id) => {
+          setButtonDisabled(true)
+          deleteFolder(id)
      }
 
      return (
@@ -45,7 +57,8 @@ const Folder = ({ data, deleteFolder }) => {
 
                          <TouchableOpacity
                               style={styles.buttonEliminar}
-                              onPress={() => deleteFolder(data._id)}
+                              onPress={() => handleDeleteFolder(data._id)}
+                              disabled={buttonDisabled}
                          >
                               <Text style={styles.textButtonEliminar}>Eliminar</Text>
                          </TouchableOpacity>

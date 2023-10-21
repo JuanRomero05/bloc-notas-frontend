@@ -6,13 +6,25 @@ import {
      View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 const Note = ({ data, deleteNote }) => {
 
      const navigation = useNavigation();
 
+     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+     useEffect(() => {
+          setButtonDisabled(false)
+     }, []);
+
      const handleEditNote = () => {
           navigation.navigate("EditarNota", { folderId: data.folderId, id: data._id, title: data.title, content: data.content })
+     }
+
+     const handleDeleteNote = (id) => {
+          setButtonDisabled(true)
+          deleteNote(id)
      }
 
      return (
@@ -36,7 +48,8 @@ const Note = ({ data, deleteNote }) => {
 
                          <TouchableOpacity
                               style={styles.buttonDeleteNote}
-                              onPress={() => deleteNote(data._id)}
+                              onPress={() => handleDeleteNote(data._id)}
+                              disabled={buttonDisabled}
                          >
                               <Text style={styles.textButtonDeleteNote}>Eliminar</Text>
                          </TouchableOpacity>
