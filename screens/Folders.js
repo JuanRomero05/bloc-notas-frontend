@@ -9,12 +9,32 @@ const Folders = () => {
 
      const api = Config.apiURL;
 
+     const [username, setUsername] = useState("")
      const [foldersUser, setFoldersUser] = useState([]);
      const [isLoading, setIsLoading] = useState(true);
 
      useEffect(() => {
-          getFolders();
-     });
+          getUsername()
+          getFolders()
+     })
+
+     const getUsername = async () => {
+          try {
+               const token = await AsyncStorage.getItem('token')               
+               const res = await fetch(api + '/users', {
+                    method: 'GET',
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+               })
+               const response = await res
+               const data = await response.json()
+               setUsername(data.username)
+          } catch (error) {
+               Alert.alert('Error de conexion', error)
+          }
+     }
 
      const getFolders = async () => {
           try {
@@ -37,7 +57,6 @@ const Folders = () => {
      }
 
      const deleteFolder = async (id) => {
-
           try {
                const token = await AsyncStorage.getItem('token');
                const res = await fetch(api + `/folders/${id}`, {
@@ -67,7 +86,7 @@ const Folders = () => {
                     !isLoading ? (
                          <ScrollView style={styles.container}>
                               <View style={styles.titleContainer}>
-                                   <Text style={styles.title}>Carpetas</Text>
+                                   <Text style={styles.title}>Carpetas de {username}</Text>
                               </View>
 
                               <View>

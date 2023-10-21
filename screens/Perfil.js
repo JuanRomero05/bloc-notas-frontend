@@ -101,6 +101,7 @@ const Perfil = ({ navigation }) => {
                                    if (response.status === 200) {
                                         Alert.alert("Cuenta Eliminada", "Se ha eliminado la cuenta correctamente.");
                                         await AsyncStorage.removeItem('token');
+                                        navigation.jumpTo("Inicio");
                                         navigation.navigate("Welcome")
                                    } else {
                                         const data = await response.json()

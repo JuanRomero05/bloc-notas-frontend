@@ -27,6 +27,7 @@ const NewNote = () => {
 
 
      const handleChangeText = (name, value) => {
+          setButtonDisabled(false)
           setNewNote({ ...NewNote, [name]: value })
      }
 

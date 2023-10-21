@@ -18,6 +18,7 @@ const NewFolder = ({ navigation }) => {
      }, []);
 
      const handleChangeText = (name, value) => {
+          setButtonDisabled(false)
           setNewFolder({ ...NewFolder, [name]: value })
      }
 
