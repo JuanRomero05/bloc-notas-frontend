@@ -21,6 +21,13 @@ const Signup = () => {
           password: "",
      });
 
+     const [signUpEmpty, setSignUpEmpty] = useState({
+          user: false,
+          name: false,
+          lastName: false,
+          email: false,
+     })
+
      const navigation = useNavigation();
 
      const toggleShowPassword = () => {
@@ -29,6 +36,11 @@ const Signup = () => {
 
      const handleChangeText = (name, value) => {
           setSignup({ ...signup, [name]: value })
+          if (value === "") {
+               setSignUpEmpty({ ...signUpEmpty, [name]: true })
+          } else {
+               setSignUpEmpty({ ...signUpEmpty, [name]: false })
+          }
      }
 
      const validateEmail = (email) => {
@@ -95,7 +107,7 @@ const Signup = () => {
                          />
                     </View>
 
-                    {signup.user === "" && (
+                    {signUpEmpty.user && (
                          <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                     )}
 
@@ -108,7 +120,7 @@ const Signup = () => {
                          />
                     </View>
 
-                    {signup.name === "" && (
+                    {signUpEmpty && (
                          <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                     )}
 
@@ -121,7 +133,7 @@ const Signup = () => {
                          />
                     </View>
 
-                    {signup.lastName === "" && (
+                    {signUpEmpty && (
                          <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                     )}
 
@@ -134,7 +146,7 @@ const Signup = () => {
                          />
                     </View>
 
-                    {signup.email && !validateEmail(signup.email) && (
+                    {signUpEmpty.email && !validateEmail(signup.email) && (
                          <Text style={styles.errorText}>Dirección de email inválida.</Text>
                     )}
 
