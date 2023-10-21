@@ -26,6 +26,9 @@ const ModificarPerfil = () => {
           newPassword: "",
           repeatPassword: "",
      });
+     const [userEmpty, setUserEmpty] = useState(false) 
+     const [firstNameEmpty, setFirstNameEmpty] = useState(false)
+     const [lastNameEmpty, setLastNameEmpty] = useState(false)
 
      const handleButtonPressUser = () => {
           setShowTextInputUser(!showTextInputUser);
@@ -45,14 +48,29 @@ const ModificarPerfil = () => {
 
      const handleChangeTextUser = (value) => {
           setUser(value)
+          if (value === "") {
+               setUserEmpty(true)
+          } else {
+               setUserEmpty(false)
+          }
      }
 
      const handleChangeTextName = (value) => {
           setFirstName(value)
+          if (value === "") {
+               setFirstNameEmpty(true)
+          } else {
+               setFirstNameEmpty(false)
+          }
      }
 
      const handleChangeTextLastName = (value) => {
           setLastName(value)
+          if (value === "") {
+               setLastNameEmpty(true)
+          } else {
+               setLastNameEmpty(false)
+          }
      }
 
      const handleChangeTextPassword = (name, value) => {
@@ -122,9 +140,14 @@ const ModificarPerfil = () => {
                                    value={user}
                                    onChangeText={(value) => handleChangeTextUser(value)}
                               />
-
                          )
                     }
+                    {
+                         userEmpty && (
+                              <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
+                         )
+                    }
+
                     <TouchableOpacity style={styles.buttons} onPress={handleButtonPressName}>
                          <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16 }}>Cambiar nombre</Text>
                     </TouchableOpacity>
@@ -136,6 +159,11 @@ const ModificarPerfil = () => {
                                    value={firstName}
                                    onChangeText={(value) => handleChangeTextName(value)}
                               />
+                         )
+                    }
+                    {
+                         firstNameEmpty && (
+                              <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                          )
                     }
 
@@ -152,7 +180,12 @@ const ModificarPerfil = () => {
                               />
                          )
                     }
-
+                    {
+                         lastNameEmpty && (
+                              <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
+                         )
+                    }
+                    
                     <TouchableOpacity style={styles.buttons} onPress={handleButtonPressPassword}>
                          <Text style={{ color: "#025099", fontWeight: "bold", fontSize: 16 }}>Cambiar contraseña</Text>
                     </TouchableOpacity>

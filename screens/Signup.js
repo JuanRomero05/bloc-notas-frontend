@@ -7,11 +7,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Signup = () => {
-
      const api = Config.apiURL;
 
      const [showPassword, setShowPassword] = useState(false);
      const [confirmPassword, setConfirmPassword] = useState("");
+     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+     useEffect(() => {
+          setButtonDisabled(false)
+     }, []);
 
      const [signup, setSignup] = useState({
           user: "",
@@ -35,6 +39,7 @@ const Signup = () => {
      };
 
      const handleChangeText = (name, value) => {
+          setButtonDisabled(false)
           setSignup({ ...signup, [name]: value })
           if (value === "") {
                setSignUpEmpty({ ...signUpEmpty, [name]: true })
@@ -54,13 +59,14 @@ const Signup = () => {
      }
 
      const handleWelcome = async () => {
-
-          if (signup.password !== confirmPassword) {
-               Alert.alert("Las contraseñas no coinciden");
-               return;
-          }
-
           try {
+               if (signup.password !== confirmPassword) {
+                    Alert.alert("Las contraseñas no coinciden");
+                    return;
+               }
+
+               setButtonDisabled(true);
+
                //let baseURL = "https://bloc-api-production.up.railway.app/auth/signup";
                const { user, email, password, name, lastName } = signup
 
@@ -120,7 +126,7 @@ const Signup = () => {
                          />
                     </View>
 
-                    {signUpEmpty && (
+                    {signUpEmpty.name && (
                          <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                     )}
 
@@ -133,7 +139,7 @@ const Signup = () => {
                          />
                     </View>
 
-                    {signUpEmpty && (
+                    {signUpEmpty.lastName && (
                          <Text style={styles.errorText}>Este campo no puede estar vacío</Text>
                     )}
 
@@ -194,7 +200,7 @@ const Signup = () => {
                          <Text style={styles.errorText}>Las contraseñas no coinciden</Text>
                     )}
 
-                    <TouchableOpacity style={styles.buttonSave} onPress={handleWelcome}>
+                    <TouchableOpacity style={styles.buttonSave} onPress={handleWelcome} disabled={buttonDisabled}>
                          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>Registrarse</Text>
                     </TouchableOpacity>
                </View>
