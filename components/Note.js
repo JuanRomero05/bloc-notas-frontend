@@ -94,10 +94,11 @@ const styles = StyleSheet.create({
      },
      item: {
           flexDirection: 'row',
-          justifyContent: "space-between"
+          justifyContent: "center"
      },
      buttonEditNote: {
           marginTop: 15,
+          marginEnd: 10,
           borderWidth: 1,
           borderColor: "#025099",
           width: 100,

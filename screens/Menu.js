@@ -12,13 +12,13 @@ const Tab = createMaterialBottomTabNavigator();
 
 const Menu = () => {
 
-     const theme = useTheme();
-     theme.colors.secondaryContainer = "#e5e5e5";
+     /* const theme = useTheme();
+     theme.colors.secondaryContainer = "#e5e5e5"; */
 
      return (
 
           <Tab.Navigator
-               activeColor="white"
+               activeColor="#025099"
                inactiveColor="#95a5a6"
                barStyle={styles.navigationBar}
                initialRouteName="Inicio"
@@ -29,7 +29,7 @@ const Menu = () => {
                     options={{
                          tabBarLabel: "Inicio",
                          tabBarIcon: () => (
-                              <MaterialCommunityIcons name="home-outline" color="white" size={24} />
+                              <MaterialCommunityIcons name="home-outline" color="#025099" size={24} />
                          )
                     }}
                />
@@ -39,7 +39,7 @@ const Menu = () => {
                     options={{
                          tabBarLabel: "Nueva carpeta",
                          tabBarIcon: () => (
-                              <MaterialCommunityIcons name="folder-plus-outline" color="#fff" size={24} />
+                              <MaterialCommunityIcons name="folder-plus-outline" color="#025099" size={24} />
                          ),
                     }}
                />
@@ -49,7 +49,7 @@ const Menu = () => {
                     options={{
                          tabBarLabel: "Perfil",
                          tabBarIcon: () => (
-                              <MaterialCommunityIcons name="account-cog-outline" color="#fff" size={24} />
+                              <MaterialCommunityIcons name="account-cog-outline" color="#025099" size={24} />
                          )
                     }}
                />
@@ -60,10 +60,11 @@ const Menu = () => {
 
 const styles = StyleSheet.create({
      navigationBar: {
-          backgroundColor: "#025099",
+          backgroundColor: "#F4F7FB",
           paddingBottom: 5,
           borderTopWidth: 0.5,
-          borderTopColor: "#666",
+          borderTopColor: "#F4F7FB",
+          /* borderColor: "gray" */
      }
 });
 

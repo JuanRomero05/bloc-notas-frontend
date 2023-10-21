@@ -83,28 +83,31 @@ const Notes = () => {
           <>
                {
                     !isLoading ? (
-                         <ScrollView>
-                              <View style={styles.titleContainer}>
-                                   <Text style={styles.title}>Notas</Text>
-                              </View>
+                         <>
+                              <ScrollView>
+                                   <View style={styles.titleContainer}>
+                                        <Text style={styles.title}>Notas</Text>
+                                   </View>
 
-                              <View>
-                                   {notesUser.length > 0 ? (
-                                        notesUser.map((data, index) => (
-                                             <Note key={index} data={data} deleteNote={() => deleteNote(data._id)} />
-                                        ))
-                                   ) : (
-                                        <Text style={styles.text}>No existen notas...</Text>
-                                   )}
+                                   <View>
+                                        {notesUser.length > 0 ? (
+                                             notesUser.map((data, index) => (
+                                                  <Note key={index} data={data} deleteNote={() => deleteNote(data._id)} />
+                                             ))
+                                        ) : (
+                                             <Text style={styles.text}>No existen notas...</Text>
+                                        )}
 
-                              </View>
+                                   </View>
 
-                              <View style={styles.addButtonContainer}>
-                                   <TouchableOpacity onPress={handleNewNote} style={styles.addButton}>
-                                        <MaterialCommunityIcons name="note-plus-outline" size={28} color="white" />
-                                   </TouchableOpacity>
-                              </View>
-                         </ScrollView>
+
+
+                              </ScrollView>
+                              <TouchableOpacity onPress={handleNewNote} style={styles.addButton}>
+                                   <MaterialCommunityIcons name="note-plus-outline" size={28} color="white" />
+                              </TouchableOpacity>
+
+                         </>
                     ) : (
                          <View style={[styles.containerSpinner, styles.horizontal]}>
                               <ActivityIndicator size="large" color="#025099" />
@@ -145,14 +148,18 @@ const styles = StyleSheet.create({
           textAlign: "center",
           marginTop: 220,
           fontWeight: "bold"
-     },
+     },/* 
      addButtonContainer: {
           position: "absolute",
-          /* bottom: 20, */
+          /* bottom: 20, 
           right: 20,
           zIndex: 1,
-     },
+     }*/
      addButton: {
+          position: "absolute",
+          bottom: 40,
+          right: 18,
+          zIndex: 1,
           backgroundColor: "#025099",
           borderRadius: 50,
           width: 55,
