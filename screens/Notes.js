@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Note from "../components/Note";
@@ -13,6 +13,8 @@ const Notes = () => {
      const api = Config.apiURL;
 
      const [notesUser, setNotesUser] = useState([]);
+     const [isLoading, setIsLoading] = useState(true);
+
      const route = useRoute()
      const folderId = route.params.folderId;
 
@@ -41,6 +43,7 @@ const Notes = () => {
                if (response.status === 200) {
                     const data = await response.json()
                     setNotesUser(data);
+                    setIsLoading(false);
                } else {
                     const data = await response.json()
                     Alert.alert(`${response.status}`, `${data.msg}`)
@@ -77,29 +80,39 @@ const Notes = () => {
      }
 
      return (
+          <>
+               {
+                    !isLoading ? (
+                         <ScrollView>
+                              <View style={styles.titleContainer}>
+                                   <Text style={styles.title}>Notas</Text>
+                              </View>
 
-          <ScrollView>
-               <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Notas</Text>
-               </View>
+                              <View>
+                                   {notesUser.length > 0 ? (
+                                        notesUser.map((data, index) => (
+                                             <Note key={index} data={data} deleteNote={() => deleteNote(data._id)} />
+                                        ))
+                                   ) : (
+                                        <Text style={styles.text}>No existen notas...</Text>
+                                   )}
 
-               <View>
-                    {notesUser.length > 0 ? (
-                         notesUser.map((data, index) => (
-                              <Note key={index} data={data} deleteNote={() => deleteNote(data._id)} />
-                         ))
+                              </View>
+
+                              <View style={styles.addButtonContainer}>
+                                   <TouchableOpacity onPress={handleNewNote} style={styles.addButton}>
+                                        <MaterialCommunityIcons name="note-plus-outline" size={28} color="white" />
+                                   </TouchableOpacity>
+                              </View>
+                         </ScrollView>
                     ) : (
-                         <Text style={styles.text}>No existen notas...</Text>
-                    )}
+                         <View style={[styles.containerSpinner, styles.horizontal]}>
+                              <ActivityIndicator size="large" color="#025099" />
+                         </View>
+                    )
+               }
+          </>
 
-               </View>
-
-               <View style={styles.addButtonContainer}>
-                    <TouchableOpacity onPress={handleNewNote} style={styles.addButton}>
-                         <MaterialCommunityIcons name="note-plus-outline" size={28} color="white" />
-                    </TouchableOpacity>
-               </View>
-          </ScrollView>
 
      );
 };
@@ -109,6 +122,15 @@ const styles = StyleSheet.create({
           flex: 1,
           backgroundColor: "#fff",
      }, */
+     containerSpinner: {
+          flex: 1,
+          justifyContent: 'center',
+     },
+     horizontal: {
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          padding: 10,
+     },
      titleContainer: {
           alignItems: "center",
           marginTop: 20,

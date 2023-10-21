@@ -1,5 +1,5 @@
 //import React from "react";
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import Folder from "../components/Folder";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -10,13 +10,13 @@ const Folders = () => {
      const api = Config.apiURL;
 
      const [foldersUser, setFoldersUser] = useState([]);
+     const [isLoading, setIsLoading] = useState(true);
 
      useEffect(() => {
           getFolders();
      });
 
      const getFolders = async () => {
-
           try {
                const token = await AsyncStorage.getItem('token');
                const res = await fetch(api + "/folders/user", {
@@ -29,6 +29,7 @@ const Folders = () => {
                const response = await res;
                const data = await response.json()
                setFoldersUser(data);
+               setIsLoading(false)
           } catch (error) {
                Alert.alert("Error", "Ha ocurrido un error al realizar el fetch.")
           }
@@ -60,56 +61,48 @@ const Folders = () => {
 
      }
 
-     /* const editFolder = async (id) => {
-
-          try {
-               const token = await AsyncStorage.getItem('token');
-               const sendBody = {
-                    "title": "",
-               }
-               const res = await fetch(api + `/folders/${id}`, {
-                    method: "PUT",
-                    headers: {
-                         "Content-Type": "application/json",
-                         "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify(sendBody)
-               })
-               const response = await res
-               if (response.status === 200) {
-                    Alert.alert("Carpeta actualizada", "Se ha actualizado la carpeta exitosamente.");
-                    getFolders();
-               } else {
-                    const data = await response.json()
-                    Alert.alert(`${response.status}, ${data.msg}`)
-               }
-          } catch (error) {
-               Alert.alert("Error al realizar el fetch", error);
-          }
-
-     } */
-
      return (
-          <ScrollView style={styles.container}>
-               <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Carpetas</Text>
-               </View>
+          <>
+               {
+                    !isLoading ? (
+                         <ScrollView style={styles.container}>
+                              <View style={styles.titleContainer}>
+                                   <Text style={styles.title}>Carpetas</Text>
+                              </View>
 
-               <View>
-                    {foldersUser.length > 0 ? (
-                         foldersUser.map((data, index) => (
-                              <Folder key={index} data={data} deleteFolder={() => deleteFolder(data._id)} />
-                         ))
+                              <View>
+                                   {foldersUser.length > 0 ? (
+                                        foldersUser.map((data, index) => (
+                                             <Folder key={index} data={data} deleteFolder={() => deleteFolder(data._id)} />
+                                        ))
+                                   ) : (
+                                        <Text style={styles.text}>No existe ninguna carpeta...</Text>
+                                   )}
+
+                              </View>
+
+                         </ScrollView>
                     ) : (
-                         <Text style={styles.text}>No existe ninguna carpeta...</Text>
-                    )}
+                         <View style={[styles.containerSpinner, styles.horizontal]}>
+                              <ActivityIndicator size="large" color="#025099" />
+                         </View>
+                    )
+               }
+          </>
 
-               </View>
-          </ScrollView>
      );
 };
 
 const styles = StyleSheet.create({
+     containerSpinner: {
+          flex: 1,
+          justifyContent: 'center',
+     },
+     horizontal: {
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          padding: 10,
+     },
      container: {
           flex: 1,
           backgroundColor: "#fff",
