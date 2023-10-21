@@ -104,10 +104,10 @@ const Perfil = ({ navigation }) => {
                                         navigation.navigate("Welcome")
                                    } else {
                                         const data = await response.json()
-                                        Alert.alert(`${response.status}`, `${data.msg}`)
+                                        Alert.alert(`Error ${response.status}`, `${data.msg}`)
                                    }
                               } catch (error) {
-                                   Alert.alert("Error al realizar el fetch", error);
+                                   Alert.alert("Error de conexion", error);
                               }
                          },
                     },

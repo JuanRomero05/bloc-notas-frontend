@@ -31,7 +31,7 @@ const Folders = () => {
                setFoldersUser(data);
                setIsLoading(false)
           } catch (error) {
-               Alert.alert("Error", "Ha ocurrido un error al realizar el fetch.")
+               Alert.alert("Error de conexion", error)
           }
 
      }
@@ -53,10 +53,10 @@ const Folders = () => {
                     getFolders();
                } else {
                     const data = await response.json()
-                    Alert.alert(`${response.status}`, `${data.msg}`)
+                    Alert.alert(`Error ${response.status}`, `${data.msg}`)
                }
           } catch (error) {
-               Alert.alert("Error al realizar el fetch", error);
+               Alert.alert("Error de conexion", error);
           }
 
      }

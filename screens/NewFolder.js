@@ -64,11 +64,11 @@ const NewFolder = ({ navigation }) => {
                          Alert.alert(`${response2.status}, ${data2.msg}`)
                     }
                } else {
-                    Alert.alert(`${response.status}`, `${data.msg}`)
+                    Alert.alert(`Error ${response.status}`, `${data.msg}`)
                }
 
           } catch (error) {
-               Alert.alert("Error al realizar el fetch", error);
+               Alert.alert("Error de conexion", error);
           }
 
      }
