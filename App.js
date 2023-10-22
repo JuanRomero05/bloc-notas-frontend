@@ -12,26 +12,10 @@ import Loading from "./components/Loading";
 
 const Stack = createNativeStackNavigator();
 
-//* 1. Crear carpeta del usuario
-//* 2. Mostrar carpeta del usuario  
-//* 3. Al guardar una carpeta me debe redireccionar a la pestaña de inicio.
-//* 4. Al presionar una carpeta me debe abrir todas las notas que contiene, y si no tiene, dar la opcion para crear una.
-//* 5. Hacer validaciones de la contraseña y el correo con las expresiones regulares.
-//* 6. En el SignUp, validar lo de repetir contraseña y que estas coincidan.
-//* Eliminar cuenta y botones de descartar.
-//* APLICAR SPINNER DE LOADING
-//* Validaciones de los campos vacios en SignUp y Login.
-//* Acomodar splash
-//TODO: Ajustes en Modificar usuario: Inicializar contraseña en blanco, Validar contraseña y contraseña repetida.
-//TODO: MARDITO BOTON DE MIERDA QUE NO SE PONE ABAJO.
-//TODO?: Cambiar background en el TabNavigator del Menu
-
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-      /* screenOptions={{ headerBackVisible: false }} */
-      >
+      <Stack.Navigator>
         <Stack.Screen
           name="Loading"
           component={Loading}
